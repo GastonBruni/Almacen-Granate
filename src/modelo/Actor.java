@@ -1,0 +1,28 @@
+package modelo;
+
+public class Actor {
+	private int id;
+	protected Contacto contacto;
+
+	public Actor(int id, Contacto contacto) {
+		super();
+		this.id = id;
+		this.contacto = contacto;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public Contacto getContacto() {
+		return contacto;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setContacto(Contacto contacto) {
+		this.contacto = contacto;
+	}
+}
