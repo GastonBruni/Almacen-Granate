@@ -1,12 +1,13 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class RetiroLocal {
+public class RetiroLocal extends Entrega {
 	private LocalTime horaEntrega;
 
-	public RetiroLocal(LocalTime horaEntrega) {
-		super();
+	public RetiroLocal(int id, LocalDate fecha, boolean efectivo, LocalTime horaEntrega) {
+		super(id, fecha, efectivo);
 		this.horaEntrega = horaEntrega;
 	}
 

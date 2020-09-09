@@ -1,6 +1,5 @@
 package modelo;
 
-import java.awt.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 

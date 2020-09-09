@@ -1,11 +1,10 @@
 package modelo;
 
-public class ItemCarrito extends Articulo {
+public class ItemCarrito {
 	private Articulo articulo;
 	private int cantidad;
 
-	public ItemCarrito(int id, String nombre, String codBarras, double precio, Articulo articulo, int cantidad) {
-		super(id, nombre, codBarras, precio);
+	public ItemCarrito(Articulo articulo, int cantidad) {
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 	}

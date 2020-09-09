@@ -1,9 +1,6 @@
 package modelo;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-public class Comercio extends Carrito {
+public class Comercio extends Actor {
 	private String nombreComercio;
 	private long cuit;
 	private double costoFijo;
@@ -14,11 +11,10 @@ public class Comercio extends Carrito {
 	private DiaRetiro lstDiaRetiro;
 	private Carrito lstCarrito;
 
-	public Comercio(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento, Cliente cliente,
-			ItemCarrito lstItemCarrito, Entrega entrega, String nombreComercio, long cuit, double costoFijo,
-			double costoPorKm, int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo,
-			DiaRetiro lstDiaRetiro, Carrito lstCarrito) {
-		super(id, fecha, hora, cerrado, descuento, cliente, lstItemCarrito, entrega);
+	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
+			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo, DiaRetiro lstDiaRetiro,
+			Carrito lstCarrito) {
+		super(id, contacto);
 		this.nombreComercio = nombreComercio;
 		this.cuit = cuit;
 		this.costoFijo = costoFijo;

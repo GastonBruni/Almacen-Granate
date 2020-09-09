@@ -1,15 +1,17 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Envio {
+public class Envio extends Entrega{
 	private LocalTime horaHasta;
 	private LocalTime horaDesde;
 	private double costo;
 	private Ubicacion ubicacion;
 
-	public Envio(LocalTime horaHasta, LocalTime horaDesde, double costo, Ubicacion ubicacion) {
-		super();
+	public Envio(int id, LocalDate fecha, boolean efectivo, LocalTime horaHasta, LocalTime horaDesde, double costo,
+			Ubicacion ubicacion) {
+		super(id, fecha, efectivo);
 		this.horaHasta = horaHasta;
 		this.horaDesde = horaDesde;
 		this.costo = costo;
