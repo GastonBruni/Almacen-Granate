@@ -9,8 +9,8 @@ public class testModelo {
 		
 		Comercio comercio = new Comercio();
 		
-		//XY -> Hombre 20 || Mujer 27 || Ambos 23 || Empresas 30 
-		System.out.println("Digito Verificador: "+comercio.validarIdentificadorUnico("3040422466"));
+		//Agregar XY -> Hombre 20 || Mujer 27 || Ambos 23 || Empresas 30 
+		System.out.println("Digito Verificador: "+comercio.validarIdentificadorUnico("2323523120"));
 	}
 
 }
