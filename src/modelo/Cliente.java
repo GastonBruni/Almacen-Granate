@@ -11,6 +11,10 @@ public class Cliente extends Actor {
 		this.nombre = nombre;
 		this.dni = dni;
 	}
+	
+	public Cliente() {
+	super();
+	}
 
 	public String getApellido() {
 		return apellido;
@@ -35,4 +39,9 @@ public class Cliente extends Actor {
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
+
 }
+
+
+
+

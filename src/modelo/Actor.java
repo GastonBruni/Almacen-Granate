@@ -10,6 +10,10 @@ public class Actor {
 		this.contacto = contacto;
 	}
 
+	public Actor() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
