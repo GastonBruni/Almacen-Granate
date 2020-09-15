@@ -1,8 +1,11 @@
 package modelo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Comercio extends Actor {
 	private String nombreComercio;
-	private long cuit;
+	private String cuit;
 	private double costoFijo;
 	private double costoPorKm;
 	private int diaDescuento;
@@ -11,7 +14,7 @@ public class Comercio extends Actor {
 	private DiaRetiro lstDiaRetiro;
 	private Carrito lstCarrito;
 
-	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
+	public Comercio(int id, Contacto contacto, String nombreComercio, String cuit, double costoFijo, double costoPorKm,
 			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo, DiaRetiro lstDiaRetiro,
 			Carrito lstCarrito) {
 		super(id, contacto);
@@ -34,7 +37,7 @@ public class Comercio extends Actor {
 		return nombreComercio;
 	}
 
-	public long getCuit() {
+	public String getCuit() {
 		return cuit;
 	}
 
@@ -70,7 +73,7 @@ public class Comercio extends Actor {
 		this.nombreComercio = nombreComercio;
 	}
 
-	public void setCuit(long cuit) {
+	public void setCuit2(String cuit) {
 		this.cuit = cuit;
 	}
 
@@ -102,39 +105,50 @@ public class Comercio extends Actor {
 		this.lstCarrito = lstCarrito;
 	}
 	
-	/*
-	 * Validar identificador: DNI: el ente nacional para validación de DNI es el
-	 * ReNaPer para este TP de laboratorio solo validar que el ingreso sea numérico.
-	 * CUIT: según el Algoritmo: verifica un CUIT de la Guía 6 (Métodos Estáticos y
-	 * Excepciones)
-	 * 1) # validarIdentificadorUnico():boolean //valida DNI o CUIT según la sub-clase	 
-	 * */
-
-	public int validarIdentificadorUnico(String cuil) {
-		//boolean cond = false;
+	// 1) # validarIdentificadorUnico():boolean //valida DNI o CUIT según la sub-clase	 
+	
+	// Agregar XY -> Hombre 20 || Mujer 27 || Ambos 23 || Empresas 30
+	public boolean validarIdentificadorUnico(String cuit) throws Exception {
+		boolean cond = false;
 		int z;
-		int num1 = Character.getNumericValue(cuil.charAt(0)); // x
-		int num2 = Character.getNumericValue(cuil.charAt(1)); // y
-		int num3 = Character.getNumericValue(cuil.charAt(2));
-		int num4 = Character.getNumericValue(cuil.charAt(3));
-		int num5 = Character.getNumericValue(cuil.charAt(4));
-		int num6 = Character.getNumericValue(cuil.charAt(5));
-		int num7 = Character.getNumericValue(cuil.charAt(6));
-		int num8 = Character.getNumericValue(cuil.charAt(7));
-		int num9 = Character.getNumericValue(cuil.charAt(8));
-		int num10 = Character.getNumericValue(cuil.charAt(9));
+		int num1 = Character.getNumericValue(cuit.charAt(0)); // x
+		int num2 = Character.getNumericValue(cuit.charAt(1)); // y
+		int num3 = Character.getNumericValue(cuit.charAt(2));
+		int num4 = Character.getNumericValue(cuit.charAt(3));
+		int num5 = Character.getNumericValue(cuit.charAt(4));
+		int num6 = Character.getNumericValue(cuit.charAt(5));
+		int num7 = Character.getNumericValue(cuit.charAt(6));
+		int num8 = Character.getNumericValue(cuit.charAt(7));
+		int num9 = Character.getNumericValue(cuit.charAt(8));
+		int num10 = Character.getNumericValue(cuit.charAt(9));
 
 		int subTotal = num1 * 5 + num2 * 4 + num3 * 3 + num4 * 2 + num5 * 7 + num6 * 6 + num7 * 5 + num8 * 4 + num9 * 3
 				+ num10 * 2;
 		int total = (subTotal % 11);
-		if ((total) % 11 == 0) {
-			z = 0;
-			//cond = true;
+
+		if ((total) % 11 == 0 && cuit.length() <= 9 || cuit.length() >= 11) {
+			cond = false;
+			throw new Exception("Error: el cuil ingresado es invalido ");
 		} else {
-			z = (11 - total);
+			z = 11 - total; //Devuelve el digito verificador!!
+			cond = true;
 		}
-		return z;
+		return cond;
 	}
 	
+	// 2) + traerHoraRetiro (LocalDate fecha): LocalTime
+	public LocalTime traerHoraRetiro(/*LocalDate fecha*/) {
+		LocalTime localTime = LocalTime.now();
+		
+		return localTime;
+	}
+	
+	
+	// 8) + agregar(Articulo articulo, int cantidad):boolean
+	public boolean agregar(Articulo articulo,int cantidad) {
+		boolean cond=true;
+		
+		return cond;
+	} 
 
 }
