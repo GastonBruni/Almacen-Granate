@@ -26,8 +26,15 @@ public class Ubicacion {
 		this.longitud = longitud;
 	}
 
+	public Ubicacion traerUbicacion() {
+		
+		//return new Ubicacion(latitud, longitud);
+		//Retorna el objeto donde estoy parado.
+		return this; 
+	}
+	
 	@Override
 	public String toString() {
-		return "Ubicacion [latitud=" + latitud + ", longitud=" + longitud + "]";
+		return "Ubicacion: latitud: " + latitud + ", longitud: " + longitud;
 	}
 }

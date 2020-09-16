@@ -16,9 +16,9 @@ public class testModelo {
 		
 		System.out.println("Verificador de Dni: "+cliente.validarDni("41354026"));
 
-
+		Ubicacion miCasita = new Ubicacion(2.5, 1.7);
 		
-		
+		System.out.println(miCasita.traerUbicacion());
 	}
 
 }

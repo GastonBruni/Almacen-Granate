@@ -160,7 +160,7 @@ public class Comercio extends Actor {
 	//ItemCarrito para ese artículo, en caso que existe se incrementa la cantidad de lo contrario se crea
 	//y se agrega a la lista.
 	// 8) + agregar(Articulo articulo, int cantidad):boolean
-	/*public boolean agregar(String nombre, String codBarras, float precio,int cantidad) {
+	public boolean agregar(String nombre, String codBarras, float precio,int cantidad) {
 		int idCarrito=1;
 		if(!lstCarrito.isEmpty()) {
 			idCarrito=lstCarrito.get(lstCarrito.size() -1).getId() +1;
@@ -174,8 +174,8 @@ public class Comercio extends Actor {
 		}
 		Articulo aux = new Articulo(idArticulo, nombre, codBarras, precio);
 		this.lstArticulos.add(aux);
-		return lstCarrito.add(new Carrito(idCarrito,aux,cantidad));
-		
-	}*/
+		//return lstCarrito.add(new Carrito(idCarrito, fecha, hora, cerrado, descuento, cliente, aux, entrega));
+		return true;
+	}
 }
 
