@@ -39,6 +39,35 @@ public class Cliente extends Actor {
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
+	
+	public boolean esNumerico(String cadena) {
+		boolean cond;
+		try {
+			Integer.parseInt(cadena);
+			cond = true;
+		}catch(NumberFormatException exception) {
+			cond = false;
+		}
+		return cond;
+	}
+	
+	public boolean validarDni(String dni)throws Exception {
+		boolean cond;
+		if(esNumerico(dni) && dni.length() == 8) {
+			
+			cond = true;
+			
+		}else {
+			
+			throw new Exception("Error: DNI ingresado no valido ");
+
+		}
+		return cond;
+	}
+
+	public String toString() {
+		return "Cliente: apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni;
+	}
 
 }
 
