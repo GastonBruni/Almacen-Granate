@@ -57,10 +57,8 @@ public class DiaRetiro {
 	public void setIntervalo(int intervalo) {
 		this.intervalo = intervalo;
 	}
-
-	@Override
+	
 	public String toString() {
-		return "DiaRetiro [id=" + id + ", diaSemana=" + diaSemana + ", horaDesde=" + horaDesde + ", horaHasta="
-				+ horaHasta + ", intervalo=" + intervalo + "]";
+		return "\nDiaRetiro id: " + id + ", diaSemana: " + diaSemana + ", horaDesde: " + horaDesde + ", horaHasta: " + horaHasta + ", intervalo: " + intervalo;
 	}
 }

@@ -3,7 +3,7 @@ package modelo;
 public class Cliente extends Actor {
 	private String apellido;
 	private String nombre;
-	private int dni;
+	private long dni;
 
 	public Cliente(int id, Contacto contacto, String apellido, String nombre, int dni) {
 		super(id, contacto);
@@ -24,7 +24,7 @@ public class Cliente extends Actor {
 		return nombre;
 	}
 
-	public int getDni() {
+	public long getDni() {
 		return dni;
 	}
 
@@ -36,24 +36,13 @@ public class Cliente extends Actor {
 		this.nombre = nombre;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(long dni) {
 		this.dni = dni;
 	}
 	
-	public boolean esNumerico(String cadena) {
-		boolean cond;
-		try {
-			Integer.parseInt(cadena);
-			cond = true;
-		}catch(NumberFormatException exception) {
-			cond = false;
-		}
-		return cond;
-	}
-	
-	public boolean validarDni(String dni)throws Exception {
-		boolean cond;
-		if(esNumerico(dni) && dni.length() == 8) {
+	public boolean validarDni(long dni)throws Exception {
+		boolean cond = false;
+		if(dni >= 00000000 && dni <= 99999999) {
 			
 			cond = true;
 			

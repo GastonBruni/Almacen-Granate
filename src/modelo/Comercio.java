@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Comercio extends Actor {
 	private String nombreComercio;
@@ -32,23 +31,21 @@ public class Comercio extends Actor {
 		this.lstDiaRetiro= new ArrayList<DiaRetiro>();
 		this.lstCarrito=new ArrayList<Carrito>();
 		this.lstArticulos=new ArrayList<Articulo>();
-
 	}
 	
 	//Constructor vacio para realizar los testeos.
 	public Comercio() {
+		this.lstDiaRetiro= new ArrayList<DiaRetiro>();
+		this.lstCarrito=new ArrayList<Carrito>();
+		this.lstArticulos=new ArrayList<Articulo>();
 	}
-
+	
 	public String getNombreComercio() {
 		return nombreComercio;
 	}
 
 	public long getCuit() {
 		return cuit;
-	}
-
-	public void setCuit(long cuit) {
-		this.cuit = cuit;
 	}
 
 	public double getCostoFijo() {
@@ -79,8 +76,16 @@ public class Comercio extends Actor {
 		return lstCarrito;
 	}
 
+	public List<Articulo> getLstArticulos() {
+		return lstArticulos;
+	}
+
 	public void setNombreComercio(String nombreComercio) {
 		this.nombreComercio = nombreComercio;
+	}
+
+	public void setCuit(long cuit) {
+		this.cuit = cuit;
 	}
 
 	public void setCostoFijo(double costoFijo) {
@@ -110,12 +115,15 @@ public class Comercio extends Actor {
 	public void setLstCarrito(List<Carrito> lstCarrito) {
 		this.lstCarrito = lstCarrito;
 	}
+
+	public void setLstArticulos(List<Articulo> lstArticulos) {
+		this.lstArticulos = lstArticulos;
+	}
 	
 	// 1) # validarIdentificadorUnico():boolean //valida CUIT	 
-	
-	// Agregar XY -> Hombre 20 || Mujer 27 || Ambos 23 || Empresas 30
 	public boolean validarIdentificadorUnico(String cuit) throws Exception {
 		boolean cond = false;
+		@SuppressWarnings("unused")
 		int aux;
 		int num1 = Character.getNumericValue(cuit.charAt(0)); // x
 		int num2 = Character.getNumericValue(cuit.charAt(1)); // y
@@ -143,39 +151,32 @@ public class Comercio extends Actor {
 		return cond;
 	}
 	
-	
+	//	Devolver todas las horas que hay de retiro - lista de localTime localdatetime DEVUELVE LISTA DE LOCALDATE
 	// 2) + traerHoraRetiro (LocalDate fecha): LocalTime
-	public LocalTime traerHoraRetiro(/*LocalDate fecha*/) {
-		LocalTime localTime = LocalTime.now();
-		
-		return localTime;
+
+	public List<LocalTime> traerHoraRetiro(LocalDate fecha) {
+
+		List<LocalTime> auxiliar = new ArrayList<LocalTime>();
+
+		return auxiliar;
 	}
 	
-	public List<Carrito> traerCarrito() {
-		return this.lstCarrito;
-	}
-		
-	//Agregar al carrito
-	//Cuando el cliente agrega al carrito un artículo y cantidad se debe verificar si existe un objeto
-	//ItemCarrito para ese artículo, en caso que existe se incrementa la cantidad de lo contrario se crea
-	//y se agrega a la lista.
-	// 8) + agregar(Articulo articulo, int cantidad):boolean
-	public boolean agregar(String nombre, String codBarras, float precio,int cantidad) {
-		int idCarrito=1;
-		if(!lstCarrito.isEmpty()) {
-			idCarrito=lstCarrito.get(lstCarrito.size() -1).getId() +1;
-			
+	// 6) + agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime
+	// horaHasta, int intervalo):boolean
+	public boolean agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) {
+
+		int idDiaRetiro = 1;
+		if (!lstDiaRetiro.isEmpty()) {
+			idDiaRetiro = lstDiaRetiro.get(lstDiaRetiro.size() - 1).getId() + 1;
 		}
-		
-		int idArticulo=1;
-		if(!lstArticulos.isEmpty()) {
-			idArticulo=lstArticulos.get(lstArticulos.size() -1).getId() +1;
-			
-		}
-		Articulo aux = new Articulo(idArticulo, nombre, codBarras, precio);
-		this.lstArticulos.add(aux);
-		//return lstCarrito.add(new Carrito(idCarrito, fecha, hora, cerrado, descuento, cliente, aux, entrega));
-		return true;
+		return lstDiaRetiro.add(new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo));
 	}
+	
+	//Devuelvo Lista DiaRetiro
+	public List<DiaRetiro> traerDiaRetiro(){
+		return this.lstDiaRetiro;
+	}
+	
+	
 }
 

@@ -26,6 +26,8 @@ public class Ubicacion {
 		this.longitud = longitud;
 	}
 
+	// 17) + traerUbicacion() : Ubicacion
+	
 	public Ubicacion traerUbicacion() {
 		
 		//return new Ubicacion(latitud, longitud);
@@ -33,7 +35,6 @@ public class Ubicacion {
 		return this; 
 	}
 	
-	@Override
 	public String toString() {
 		return "Ubicacion: latitud: " + latitud + ", longitud: " + longitud;
 	}
