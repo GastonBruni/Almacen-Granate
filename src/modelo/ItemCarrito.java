@@ -5,6 +5,7 @@ public class ItemCarrito {
 	private int cantidad;
 
 	public ItemCarrito(Articulo articulo, int cantidad) {
+		super();
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 	}
@@ -24,4 +25,10 @@ public class ItemCarrito {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemCarrito [articulo=" + articulo + ", cantidad=" + cantidad + "]";
+	}
+
 }

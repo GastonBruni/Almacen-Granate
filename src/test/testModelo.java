@@ -9,13 +9,14 @@ public class testModelo {
 		
 		Comercio comercio = new Comercio();
 		
-		// Valido un cuit para testeo
-
-		//System.out.println(comercio.getCuit());
-		//Agregar XY -> Hombre 20 || Mujer 27 || Ambos 23 || Empresas 30 
+		//Genero Exception
 		System.out.println("Digito Verificador: "+comercio.validarIdentificadorUnico("2041354026"));
+
+		Cliente cliente = new Cliente();
 		
-		System.out.println(comercio.traerHoraRetiro());
+		System.out.println("Verificador de Dni: "+cliente.validarDni("41354026"));
+
+
 		
 		
 	}

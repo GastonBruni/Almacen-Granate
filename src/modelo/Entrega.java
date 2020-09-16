@@ -38,4 +38,9 @@ public class Entrega {
 		this.efectivo = efectivo;
 	}
 
+	@Override
+	public String toString() {
+		return "Entrega [id=" + id + ", fecha=" + fecha + ", efectivo=" + efectivo + "]";
+	}
+
 }

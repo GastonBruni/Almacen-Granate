@@ -2,21 +2,25 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Comercio extends Actor {
 	private String nombreComercio;
-	private String cuit;
+	private long cuit;
 	private double costoFijo;
 	private double costoPorKm;
 	private int diaDescuento;
 	private int porcentajeDescuentoDia;
 	private int porcentajeDescuentoEfectivo;
-	private DiaRetiro lstDiaRetiro;
-	private Carrito lstCarrito;
+	private List<DiaRetiro> lstDiaRetiro;
+	private List<Carrito> lstCarrito;
+	private List<Articulo> lstArticulos;
 
-	public Comercio(int id, Contacto contacto, String nombreComercio, String cuit, double costoFijo, double costoPorKm,
+	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
 			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo, DiaRetiro lstDiaRetiro,
-			Carrito lstCarrito) {
+			Carrito lstCarrito, Articulo lstArticulos) {
 		super(id, contacto);
 		this.nombreComercio = nombreComercio;
 		this.cuit = cuit;
@@ -25,8 +29,10 @@ public class Comercio extends Actor {
 		this.diaDescuento = diaDescuento;
 		this.porcentajeDescuentoDia = porcentajeDescuentoDia;
 		this.porcentajeDescuentoEfectivo = porcentajeDescuentoEfectivo;
-		this.lstDiaRetiro = lstDiaRetiro;
-		this.lstCarrito = lstCarrito;
+		this.lstDiaRetiro= new ArrayList<DiaRetiro>();
+		this.lstCarrito=new ArrayList<Carrito>();
+		this.lstArticulos=new ArrayList<Articulo>();
+
 	}
 	
 	//Constructor vacio para realizar los testeos.
@@ -37,8 +43,12 @@ public class Comercio extends Actor {
 		return nombreComercio;
 	}
 
-	public String getCuit() {
+	public long getCuit() {
 		return cuit;
+	}
+
+	public void setCuit(long cuit) {
+		this.cuit = cuit;
 	}
 
 	public double getCostoFijo() {
@@ -61,20 +71,16 @@ public class Comercio extends Actor {
 		return porcentajeDescuentoEfectivo;
 	}
 
-	public DiaRetiro getLstDiaRetiro() {
+	public List<DiaRetiro> getLstDiaRetiro() {
 		return lstDiaRetiro;
 	}
 
-	public Carrito getLstCarrito() {
+	public List<Carrito> getLstCarrito() {
 		return lstCarrito;
 	}
 
 	public void setNombreComercio(String nombreComercio) {
 		this.nombreComercio = nombreComercio;
-	}
-
-	public void setCuit2(String cuit) {
-		this.cuit = cuit;
 	}
 
 	public void setCostoFijo(double costoFijo) {
@@ -97,20 +103,20 @@ public class Comercio extends Actor {
 		this.porcentajeDescuentoEfectivo = porcentajeDescuentoEfectivo;
 	}
 
-	public void setLstDiaRetiro(DiaRetiro lstDiaRetiro) {
+	public void setLstDiaRetiro(List<DiaRetiro> lstDiaRetiro) {
 		this.lstDiaRetiro = lstDiaRetiro;
 	}
 
-	public void setLstCarrito(Carrito lstCarrito) {
+	public void setLstCarrito(List<Carrito> lstCarrito) {
 		this.lstCarrito = lstCarrito;
 	}
 	
-	// 1) # validarIdentificadorUnico():boolean //valida DNI o CUIT según la sub-clase	 
+	// 1) # validarIdentificadorUnico():boolean //valida CUIT	 
 	
 	// Agregar XY -> Hombre 20 || Mujer 27 || Ambos 23 || Empresas 30
 	public boolean validarIdentificadorUnico(String cuit) throws Exception {
 		boolean cond = false;
-		int z;
+		int aux;
 		int num1 = Character.getNumericValue(cuit.charAt(0)); // x
 		int num2 = Character.getNumericValue(cuit.charAt(1)); // y
 		int num3 = Character.getNumericValue(cuit.charAt(2));
@@ -126,15 +132,17 @@ public class Comercio extends Actor {
 				+ num10 * 2;
 		int total = (subTotal % 11);
 
-		if ((total) % 11 == 0 && cuit.length() <= 9 || cuit.length() >= 11) {
-			cond = false;
-			throw new Exception("Error: el cuil ingresado es invalido ");
-		} else {
-			z = 11 - total; //Devuelve el digito verificador!!
+		if (total != 0 && cuit.length() == 10) {
+			aux = (11 - total);
 			cond = true;
+		} else {
+
+			throw new Exception("Error: Cuit ingresado no es valido");
+
 		}
 		return cond;
 	}
+	
 	
 	// 2) + traerHoraRetiro (LocalDate fecha): LocalTime
 	public LocalTime traerHoraRetiro(/*LocalDate fecha*/) {
@@ -143,12 +151,31 @@ public class Comercio extends Actor {
 		return localTime;
 	}
 	
-	
-	// 8) + agregar(Articulo articulo, int cantidad):boolean
-	public boolean agregar(Articulo articulo,int cantidad) {
-		boolean cond=true;
+	public List<Carrito> traerCarrito() {
+		return this.lstCarrito;
+	}
 		
-		return cond;
-	} 
-
+	//Agregar al carrito
+	//Cuando el cliente agrega al carrito un artículo y cantidad se debe verificar si existe un objeto
+	//ItemCarrito para ese artículo, en caso que existe se incrementa la cantidad de lo contrario se crea
+	//y se agrega a la lista.
+	// 8) + agregar(Articulo articulo, int cantidad):boolean
+	/*public boolean agregar(String nombre, String codBarras, float precio,int cantidad) {
+		int idCarrito=1;
+		if(!lstCarrito.isEmpty()) {
+			idCarrito=lstCarrito.get(lstCarrito.size() -1).getId() +1;
+			
+		}
+		
+		int idArticulo=1;
+		if(!lstArticulos.isEmpty()) {
+			idArticulo=lstArticulos.get(lstArticulos.size() -1).getId() +1;
+			
+		}
+		Articulo aux = new Articulo(idArticulo, nombre, codBarras, precio);
+		this.lstArticulos.add(aux);
+		return lstCarrito.add(new Carrito(idCarrito,aux,cantidad));
+		
+	}*/
 }
+

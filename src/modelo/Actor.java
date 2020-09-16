@@ -29,4 +29,9 @@ public class Actor {
 	public void setContacto(Contacto contacto) {
 		this.contacto = contacto;
 	}
+
+	@Override
+	public String toString() {
+		return "Actor [id=" + id + ", contacto=" + contacto + "]";
+	}
 }

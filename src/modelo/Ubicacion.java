@@ -25,4 +25,9 @@ public class Ubicacion {
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
+
+	@Override
+	public String toString() {
+		return "Ubicacion [latitud=" + latitud + ", longitud=" + longitud + "]";
+	}
 }

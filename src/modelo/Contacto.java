@@ -35,4 +35,9 @@ public class Contacto {
 	public void setUbicacion(Ubicacion ubicacion) {
 		this.ubicacion = ubicacion;
 	}
+
+	@Override
+	public String toString() {
+		return "Contacto [email=" + email + ", celular=" + celular + ", ubicacion=" + ubicacion + "]";
+	}
 }
