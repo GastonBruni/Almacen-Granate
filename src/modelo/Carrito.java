@@ -23,9 +23,17 @@ public class Carrito {
 		this.hora = hora;
 		this.cerrado = cerrado;
 		this.descuento = descuento;
-		Cliente = new ArrayList<Cliente>();
+		this.Cliente = new ArrayList<Cliente>();
 		this.lstItemCarrito = new ArrayList<ItemCarrito>();
-		Entrega = new ArrayList<Entrega>();
+		this.Entrega = new ArrayList<Entrega>();
+
+	}
+	
+	public Carrito() {
+		super();
+		this.Cliente = new ArrayList<Cliente>();
+		this.lstItemCarrito = new ArrayList<ItemCarrito>();
+		this.Entrega = new ArrayList<Entrega>();
 
 	}
 
@@ -97,11 +105,41 @@ public class Carrito {
 		Entrega = entrega;
 	}
 
+	// 8) + agregar(Articulo articulo, int cantidad):boolean
+	public boolean agregar(Articulo articulo, int cantidad) {
+		boolean bandera = false;
+		int contador = 0;
+		while (contador < lstItemCarrito.size() && bandera == false) {
+			if (lstItemCarrito.get(contador).getArticulo().equals(articulo) == true) {
+				lstItemCarrito.get(contador).setCantidad(lstItemCarrito.get(contador).getCantidad() + cantidad);
+				bandera = true;
+			} else {
+				contador++;
+			}
+		}
+		if (bandera == false) {
+			lstItemCarrito.add(new ItemCarrito(articulo, cantidad));
+		}
+		return bandera;
+	}
+	
+	// Devuelvo Lista agregar
+	public List<ItemCarrito> traerAgregar() {
+		return this.lstItemCarrito;
+	}
+
+	// 10) + calcularTotalCarrito() : doble
+	public double calcularTotalCarrito1() {
+		double total = 0;
+		for (ItemCarrito p : this.lstItemCarrito) {
+			total = total + p.calcularSubTotalItem();
+		}
+		return total;
+	}
+
 	public String toString() {
-		return "Carrito [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", cerrado=" + cerrado + ", descuento="
-				+ descuento + ", Cliente=" + Cliente + ", lstItemCarrito=" + lstItemCarrito + ", Entrega=" + Entrega
-				+ "]";
+		return "Carrito id: " + id + ", fecha: " + fecha + ", hora: " + hora + ", cerrado: " + cerrado + ", descuento: "
+				+ descuento + ", Cliente: " + Cliente + ", lstItemCarrito: " + lstItemCarrito + ", Entrega: " + Entrega;
 	}
 
 }
-

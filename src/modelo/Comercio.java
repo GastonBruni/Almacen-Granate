@@ -28,18 +28,18 @@ public class Comercio extends Actor {
 		this.diaDescuento = diaDescuento;
 		this.porcentajeDescuentoDia = porcentajeDescuentoDia;
 		this.porcentajeDescuentoEfectivo = porcentajeDescuentoEfectivo;
-		this.lstDiaRetiro= new ArrayList<DiaRetiro>();
-		this.lstCarrito=new ArrayList<Carrito>();
-		this.lstArticulos=new ArrayList<Articulo>();
+		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
+		this.lstCarrito = new ArrayList<Carrito>();
+		this.lstArticulos = new ArrayList<Articulo>();
 	}
-	
-	//Constructor vacio para realizar los testeos.
+
+	// Constructor vacio para realizar los testeos.
 	public Comercio() {
-		this.lstDiaRetiro= new ArrayList<DiaRetiro>();
-		this.lstCarrito=new ArrayList<Carrito>();
-		this.lstArticulos=new ArrayList<Articulo>();
+		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
+		this.lstCarrito = new ArrayList<Carrito>();
+		this.lstArticulos = new ArrayList<Articulo>();
 	}
-	
+
 	public String getNombreComercio() {
 		return nombreComercio;
 	}
@@ -119,11 +119,10 @@ public class Comercio extends Actor {
 	public void setLstArticulos(List<Articulo> lstArticulos) {
 		this.lstArticulos = lstArticulos;
 	}
-	
-	// 1) # validarIdentificadorUnico():boolean //valida CUIT	 
-	public boolean validarIdentificadorUnico(String cuit) throws Exception {
+
+	// 1) # validarIdentificadorUnico():boolean //valida CUIT
+	/* public boolean validarIdentificadorUnico(String cuit) throws Exception {
 		boolean cond = false;
-		@SuppressWarnings("unused")
 		int aux;
 		int num1 = Character.getNumericValue(cuit.charAt(0)); // x
 		int num2 = Character.getNumericValue(cuit.charAt(1)); // y
@@ -149,9 +148,24 @@ public class Comercio extends Actor {
 
 		}
 		return cond;
+	} */
+	
+	public boolean validarIdentificadorUnico(long cuit) throws Exception {
+		boolean cond = false;
+		
+		if(cuit >= 1111111111l && cuit <= 9999999999l) {	
+			cond = true;
+		} else {
+			cond = false;
+			throw new Exception("Error: Cuit ingresado no es valido");
+
+		}
+		return cond;
 	}
 	
-	//	Devolver todas las horas que hay de retiro - lista de localTime localdatetime DEVUELVE LISTA DE LOCALDATE
+
+	// Devolver todas las horas que hay de retiro - lista de localTime localdatetime
+	// DEVUELVE LISTA DE LOCALDATE
 	// 2) + traerHoraRetiro (LocalDate fecha): LocalTime
 
 	public List<LocalTime> traerHoraRetiro(LocalDate fecha) {
@@ -160,7 +174,7 @@ public class Comercio extends Actor {
 
 		return auxiliar;
 	}
-	
+
 	// 6) + agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime
 	// horaHasta, int intervalo):boolean
 	public boolean agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) {
@@ -171,12 +185,15 @@ public class Comercio extends Actor {
 		}
 		return lstDiaRetiro.add(new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo));
 	}
-	
-	//Devuelvo Lista DiaRetiro
-	public List<DiaRetiro> traerDiaRetiro(){
+
+	// Devuelvo Lista DiaRetiro
+	public List<DiaRetiro> traerDiaRetiro() {
 		return this.lstDiaRetiro;
 	}
-	
-	
-}
 
+	// Devuelvo Lista DiaRetiro
+	public List<Carrito> traerCarrito() {
+		return this.lstCarrito;
+	}
+
+}

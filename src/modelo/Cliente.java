@@ -39,7 +39,7 @@ public class Cliente extends Actor {
 	public void setDni(long dni) {
 		this.dni = dni;
 	}
-	
+	// 1) validarDni
 	public boolean validarDni(long dni)throws Exception {
 		boolean cond = false;
 		if(dni >= 00000000 && dni <= 99999999) {

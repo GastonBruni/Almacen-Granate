@@ -26,9 +26,14 @@ public class ItemCarrito {
 		this.cantidad = cantidad;
 	}
 
-	@Override
+	// 9) + calcularSubTotalItem():double
+	public double calcularSubTotalItem() {
+		double total = this.articulo.getPrecio() * this.cantidad;
+		return total;
+	}
+
 	public String toString() {
-		return "ItemCarrito [articulo=" + articulo + ", cantidad=" + cantidad + "]";
+		return "ItemCarrito: articulo: " + articulo + ", cantidad: " + cantidad;
 	}
 
 }

@@ -47,6 +47,6 @@ public class Articulo {
 	}
 
 	public String toString() {
-		return "Articulo [id=" + id + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio=" + precio + "]";
+		return "\nArticulo id: " + id + ", nombre: " + nombre + ", codBarras: " + codBarras + ", precio: " + precio;
 	}
 }
