@@ -4,14 +4,17 @@ public class Cliente extends Actor {
 	private String apellido;
 	private String nombre;
 	private long dni;
-
-	public Cliente(int id, Contacto contacto, String apellido, String nombre, int dni) {
+	
+	public Cliente(int id, Contacto contacto, String apellido, String nombre, long dni)throws Exception {
 		super(id, contacto);
 		this.apellido = apellido;
 		this.nombre = nombre;
+		this.setDni(dni);
+	}
+	public void setDni(long dni)throws Exception {
+		validarDni(dni);
 		this.dni = dni;
 	}
-	
 	public Cliente() {
 	super();
 	}
@@ -36,9 +39,6 @@ public class Cliente extends Actor {
 		this.nombre = nombre;
 	}
 
-	public void setDni(long dni) {
-		this.dni = dni;
-	}
 	// 1) validarDni
 	public boolean validarDni(long dni)throws Exception {
 		boolean cond = false;
@@ -55,7 +55,7 @@ public class Cliente extends Actor {
 	}
 
 	public String toString() {
-		return "Cliente: apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni;
+		return "Cliente: apellido: " + apellido + ", nombre: " + nombre + ", dni: " + dni;
 	}
 
 }

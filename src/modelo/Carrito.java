@@ -28,7 +28,7 @@ public class Carrito {
 		this.Entrega = new ArrayList<Entrega>();
 
 	}
-	
+
 	public Carrito() {
 		super();
 		this.Cliente = new ArrayList<Cliente>();
@@ -106,34 +106,81 @@ public class Carrito {
 	}
 
 	// 8) + agregar(Articulo articulo, int cantidad):boolean
-	public boolean agregar(Articulo articulo, int cantidad) {
-		boolean bandera = false;
+	public ItemCarrito traerItemCarrito(Articulo articulo) {
+		ItemCarrito item = null;
 		int contador = 0;
-		while (contador < lstItemCarrito.size() && bandera == false) {
-			if (lstItemCarrito.get(contador).getArticulo().equals(articulo) == true) {
-				lstItemCarrito.get(contador).setCantidad(lstItemCarrito.get(contador).getCantidad() + cantidad);
-				bandera = true;
+		while (contador < this.lstItemCarrito.size() && item == null) {
+			if (this.lstItemCarrito.get(contador).getArticulo().equals(articulo) == true) {
+				item = this.lstItemCarrito.get(contador);
 			} else {
 				contador++;
 			}
+
 		}
-		if (bandera == false) {
+		return item;
+	}
+
+	public boolean agregar(Articulo articulo, int cantidad) {
+		boolean bandera = false;
+
+		if (this.traerItemCarrito(articulo) == null) {
 			lstItemCarrito.add(new ItemCarrito(articulo, cantidad));
+		} else {
+			ItemCarrito item = this.traerItemCarrito(articulo);
+			item.setCantidad(item.getCantidad() + cantidad);
+			bandera = true;
+		}
+		return bandera;
+	}
+
+	public boolean sacarDelCarrito(Articulo articulo, int cantidad) {
+
+		boolean bandera = false;
+		if (traerItemCarrito(articulo) != null) {
+			ItemCarrito item = traerItemCarrito(articulo);
+			if (item.getCantidad() - cantidad <= 0) {
+				this.lstItemCarrito.remove(item);
+			} else {
+				item.setCantidad(item.getCantidad() - cantidad);
+				bandera = true;
+			}
 		}
 		return bandera;
 	}
 	
-	// Devuelvo Lista agregar
-	public List<ItemCarrito> traerAgregar() {
-		return this.lstItemCarrito;
+	public double calcularDescuentoEfectivo(double porcentajeDescuentoEfectivo) {
+		return (this.calcularTotalCarrito() * porcentajeDescuentoEfectivo / 100);
+	}
+	
+	public double calcularDescuentoDia(int diaDescuento, double porcentajeDescuento) {
+		return (this.calcularTotalCarrito() * porcentajeDescuento / 100);
 	}
 
-	// 10) + calcularTotalCarrito() : doble
-	public double calcularTotalCarrito1() {
+	public void calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento,
+			double porcentajeDescuentoEfectivo) {
+		double descuento = 0;
+
+		if (calcularDescuentoEfectivo(porcentajeDescuentoEfectivo) < calcularDescuentoDia(diaDescuento, porcentajeDescuento)) {
+			descuento = calcularDescuentoDia(diaDescuento, porcentajeDescuento);
+
+		} else {
+			descuento = calcularDescuentoEfectivo(porcentajeDescuentoEfectivo);
+		}
+		setDescuento(descuento);
+	}
+
+	// 10) + calcularTotalCarrito() : double
+	public double calcularTotalCarrito() {
 		double total = 0;
 		for (ItemCarrito p : this.lstItemCarrito) {
 			total = total + p.calcularSubTotalItem();
 		}
+		return total;
+	}
+
+	public double totalAPagarCarrito() {
+		double total = 0;
+		total = calcularTotalCarrito() - this.descuento;
 		return total;
 	}
 

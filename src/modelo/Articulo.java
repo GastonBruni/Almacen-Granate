@@ -45,7 +45,18 @@ public class Articulo {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-
+	
+	public boolean validarCodBarras(String codBarras) throws Exception{
+		boolean cond = false;
+		int cod = codBarras.length();
+		if(cod == 13) {
+			cond = true;
+		}else {
+			throw new Exception("El codigo de barras ingresado no es valido");
+		}
+		return cond;
+	}
+	
 	public String toString() {
 		return "\nArticulo id: " + id + ", nombre: " + nombre + ", codBarras: " + codBarras + ", precio: " + precio;
 	}

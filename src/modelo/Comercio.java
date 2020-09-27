@@ -174,6 +174,26 @@ public class Comercio extends Actor {
 
 		return auxiliar;
 	}
+	
+	public List<Turno> turnosLibres(List<Turno>agenda){
+		List<Turno> turnos = new ArrayList<Turno>();
+		//For-Each
+		for(Turno turno : agenda) {
+			if(!turno.isOcupado())
+				turnos.add(turno);
+		}
+		return turnos;
+	}
+	
+	public List<Turno> turnosOcupados(List<Turno>agenda){
+		List<Turno> turnos = new ArrayList<Turno>();
+		//For-Each
+		for(Turno turno : agenda) {
+			if(!turno.isOcupado())
+				turnos.add(turno);
+		}
+		return turnos;
+	}
 
 	// 6) + agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime
 	// horaHasta, int intervalo):boolean
@@ -195,5 +215,6 @@ public class Comercio extends Actor {
 	public List<Carrito> traerCarrito() {
 		return this.lstCarrito;
 	}
-
+	
+	
 }

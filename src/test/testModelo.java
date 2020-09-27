@@ -37,14 +37,33 @@ public class testModelo {
 		Articulo articulo3 = new Articulo(3,"Rollo de cocina","7928018294333",30d);
 		Articulo articulo4 = new Articulo(4,"Azucar","7281821343332",40d);
 		Articulo articulo5 = new Articulo(5,"Mermelada","7281544562334",60d);
+		
+		articulo1.validarCodBarras("7281938294331");
+		articulo2.validarCodBarras("7287623294334");
+		articulo3.validarCodBarras("7928018294333");
+		articulo4.validarCodBarras("7281821343332");
+		articulo5.validarCodBarras("7281544562334");
+		
+		//Devuelve exception
+		//articulo5.validarCodBarras("7281544562334543");
 
 		carrito.agregar(articulo1,2);
 		carrito.agregar(articulo3,4);
 		carrito.agregar(articulo2,1);
 		carrito.agregar(articulo4,3);
 		carrito.agregar(articulo5,1);
+		
+		
+		System.out.println(carrito.traerItemCarrito(articulo1));
+		System.out.println(carrito.traerItemCarrito(articulo3));
+		System.out.println(carrito.traerItemCarrito(articulo2));
+		System.out.println(carrito.traerItemCarrito(articulo4));
+		System.out.println(carrito.traerItemCarrito(articulo5));
+		
+		System.out.println(" ");
+		
+		System.out.println("El total es: "+carrito.calcularTotalCarrito());
 
-		System.out.println(carrito.traerAgregar());
 		System.out.println(" ");
 		
 		// Caso de uso 17:
