@@ -19,7 +19,7 @@ public class Comercio extends Actor {
 
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
 			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo, DiaRetiro lstDiaRetiro,
-			Carrito lstCarrito, Articulo lstArticulos) {
+			Carrito lstCarrito, Articulo lstArticulos) throws Exception {
 		super(id, contacto);
 		this.nombreComercio = nombreComercio;
 		this.cuit = cuit;
@@ -31,8 +31,15 @@ public class Comercio extends Actor {
 		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
 		this.lstCarrito = new ArrayList<Carrito>();
 		this.lstArticulos = new ArrayList<Articulo>();
+		this.setCuit(cuit);
 	}
-
+	
+	public void setCuit(long cuit)throws Exception {
+		validarIdentificadorUnico(cuit);
+		this.cuit = cuit;
+	}
+	
+	
 	// Constructor vacio para realizar los testeos.
 	public Comercio() {
 		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
@@ -84,7 +91,7 @@ public class Comercio extends Actor {
 		this.nombreComercio = nombreComercio;
 	}
 
-	public void setCuit(long cuit) {
+	public void setCuit1(long cuit) {
 		this.cuit = cuit;
 	}
 
@@ -169,10 +176,14 @@ public class Comercio extends Actor {
 	// 2) + traerHoraRetiro (LocalDate fecha): LocalTime
 
 	public List<LocalTime> traerHoraRetiro(LocalDate fecha) {
-
-		List<LocalTime> auxiliar = new ArrayList<LocalTime>();
-
-		return auxiliar;
+		List<LocalTime> hora = new ArrayList<LocalTime>();
+		int dia = fecha.getDayOfWeek().getValue();
+		for (DiaRetiro p : lstDiaRetiro) {
+			if (p.getDiaSemana() == dia) {
+				hora.add(p.getHoraDesde());
+			}
+		}
+		return hora;
 	}
 	
 	public List<Turno> turnosLibres(List<Turno>agenda){

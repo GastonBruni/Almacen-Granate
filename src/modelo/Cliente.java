@@ -11,10 +11,12 @@ public class Cliente extends Actor {
 		this.nombre = nombre;
 		this.setDni(dni);
 	}
+	
 	public void setDni(long dni)throws Exception {
 		validarDni(dni);
 		this.dni = dni;
 	}
+	
 	public Cliente() {
 	super();
 	}

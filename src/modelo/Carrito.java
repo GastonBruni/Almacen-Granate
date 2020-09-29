@@ -11,98 +11,91 @@ public class Carrito {
 	private LocalTime hora;
 	private boolean cerrado;
 	private double descuento;
-	private List<Cliente> Cliente;
+	private Cliente cliente;
+	private Entrega entrega;
 	private List<ItemCarrito> lstItemCarrito;
-	private List<Entrega> Entrega;
 
-	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,
-			List<modelo.Cliente> cliente, List<ItemCarrito> lstItemCarrito, List<modelo.Entrega> entrega) {
+	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento, Cliente cliente,
+			Entrega entrega, List<ItemCarrito> lstItemCarrito) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.cerrado = cerrado;
 		this.descuento = descuento;
-		this.Cliente = new ArrayList<Cliente>();
-		this.lstItemCarrito = new ArrayList<ItemCarrito>();
-		this.Entrega = new ArrayList<Entrega>();
-
+		this.cliente = cliente;
+		this.entrega = entrega;
+		this.lstItemCarrito = lstItemCarrito;
 	}
 
 	public Carrito() {
 		super();
-		this.Cliente = new ArrayList<Cliente>();
 		this.lstItemCarrito = new ArrayList<ItemCarrito>();
-		this.Entrega = new ArrayList<Entrega>();
-
 	}
 
-	public Carrito(int idCarrito, Articulo aux, int cantidad) {
-		// TODO Auto-generated constructor stub
-	}
 
 	public int getId() {
 		return id;
-	}
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public LocalTime getHora() {
-		return hora;
-	}
-
-	public boolean isCerrado() {
-		return cerrado;
-	}
-
-	public double getDescuento() {
-		return descuento;
-	}
-
-	public List<Cliente> getCliente() {
-		return Cliente;
-	}
-
-	public List<ItemCarrito> getLstItemCarrito() {
-		return lstItemCarrito;
-	}
-
-	public List<Entrega> getEntrega() {
-		return Entrega;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+
+	public LocalTime getHora() {
+		return hora;
 	}
 
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 
+	public boolean isCerrado() {
+		return cerrado;
+	}
+
 	public void setCerrado(boolean cerrado) {
 		this.cerrado = cerrado;
+	}
+
+	public double getDescuento() {
+		return descuento;
 	}
 
 	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
 
-	public void setCliente(List<Cliente> cliente) {
-		Cliente = cliente;
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Entrega getEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
+	}
+
+	public List<ItemCarrito> getLstItemCarrito() {
+		return lstItemCarrito;
 	}
 
 	public void setLstItemCarrito(List<ItemCarrito> lstItemCarrito) {
 		this.lstItemCarrito = lstItemCarrito;
-	}
-
-	public void setEntrega(List<Entrega> entrega) {
-		Entrega = entrega;
 	}
 
 	// 8) + agregar(Articulo articulo, int cantidad):boolean
@@ -153,7 +146,14 @@ public class Carrito {
 	}
 	
 	public double calcularDescuentoDia(int diaDescuento, double porcentajeDescuento) {
-		return (this.calcularTotalCarrito() * porcentajeDescuento / 100);
+		int dia = 2;
+		double descuento = 0;
+		if(diaDescuento == dia) {
+			for(ItemCarrito i : lstItemCarrito) {
+				descuento = (i.getCantidad()/2) * (i.getArticulo().getPrecio()) * (porcentajeDescuento / 100);
+			}
+		}
+		return descuento;
 	}
 
 	public void calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento,
@@ -186,7 +186,7 @@ public class Carrito {
 
 	public String toString() {
 		return "Carrito id: " + id + ", fecha: " + fecha + ", hora: " + hora + ", cerrado: " + cerrado + ", descuento: "
-				+ descuento + ", Cliente: " + Cliente + ", lstItemCarrito: " + lstItemCarrito + ", Entrega: " + Entrega;
+				+ descuento + ", Cliente: " + cliente + ", lstItemCarrito: " + lstItemCarrito + ", Entrega: " + entrega;
 	}
 
 }
