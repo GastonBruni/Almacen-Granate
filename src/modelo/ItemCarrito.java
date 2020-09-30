@@ -40,4 +40,5 @@ public class ItemCarrito {
 		return "ItemCarrito: articulo: " + articulo + ", cantidad: " + cantidad;
 	}
 
+
 }

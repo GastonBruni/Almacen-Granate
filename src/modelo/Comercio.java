@@ -243,9 +243,6 @@ public class Comercio extends Actor {
 		return lstArticulo.add(new Articulo(id, nombre, codBarras, precio));
 	}
 	
-
-	
-	
 	// Devuelvo Lista DiaRetiro
 	public List<DiaRetiro> traerDiaRetiro() {
 		return this.lstDiaRetiro;
