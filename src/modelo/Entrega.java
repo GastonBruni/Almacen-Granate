@@ -14,6 +14,10 @@ public class Entrega {
 		this.efectivo = efectivo;
 	}
 
+	public Entrega() {
+
+	}
+
 	public int getId() {
 		return id;
 	}

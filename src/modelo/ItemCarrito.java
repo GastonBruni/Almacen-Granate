@@ -9,6 +9,10 @@ public class ItemCarrito {
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 	}
+	
+	public ItemCarrito() {
+		super();
+	}
 
 	public Articulo getArticulo() {
 		return articulo;

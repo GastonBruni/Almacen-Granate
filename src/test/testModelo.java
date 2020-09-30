@@ -12,6 +12,7 @@ public class testModelo {
 		Comercio comercio = new Comercio();
 		Cliente cliente = new Cliente();
 		Carrito carrito = new Carrito();
+		Envio envio = new Envio();
 		
 
 		// Caso de uso 1:
@@ -86,14 +87,17 @@ public class testModelo {
 		System.out.println("Validacion codigo de barras: " + articulo1.validarCodBarras("7281544562334"));
 		
 		// Caso de uso 9: 
+
 		
 		System.out.println(" ");
+		ItemCarrito itemCarrito = new ItemCarrito(articulo1,5);
+		System.out.println("El SubTotal del carrito es: "+itemCarrito.calcularSubTotalItem());
 		
 		// Caso de uso 10:
 		System.out.println("El total es: "+carrito.calcularTotalCarrito());
 		
 		// Caso de uso 11:
-		System.out.println("El total es: "+carrito.calcularDescuentoDia(4, 29.20d));
+		System.out.println("El total es: "+carrito.calcularDescuentoDia(2, 29.20d));
 		
 		// Caso de uso 12: 
 		System.out.println("El total es: "+carrito.calcularDescuentoEfectivo(15.40));
@@ -106,11 +110,21 @@ public class testModelo {
 		
 		System.out.println(" ");
 		
+		
 		// Caso de uso 17:
 		Ubicacion miCasita = new Ubicacion(2.5, 1.7);
 		System.out.println(miCasita.traerUbicacion());
-
-
+		
+		System.out.println(" ");
+		
+		// Caso de uso 16:
+		System.out.println(envio.distanciaCoord(14, 4, 21, 7));		
+		
+		envio.setCosto(miCasita, 154d, 200);
+		
+		//Devuelvo el costo de setCosto
+		System.out.println(envio.getCosto());
+							
 	}
 
 }

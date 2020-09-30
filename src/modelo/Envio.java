@@ -17,6 +17,10 @@ public class Envio extends Entrega {
 		this.costo = costo;
 		this.ubicacion = ubicacion;
 	}
+	
+	public Envio() {
+		super();
+		}
 
 	public LocalTime getHoraHasta() {
 		return horaHasta;
@@ -64,13 +68,11 @@ public class Envio extends Entrega {
 
 	// 16) + setCosto(Ubicacion ubicacion, double costoFijo, double costoPorKm):
 	public void setCosto(Ubicacion ubicacion, double costoFijo, double costoKm) {
-		this.costo = costoFijo + distanciaCoord(this.ubicacion.getLatitud(), this.ubicacion.getLongitud(),
-				ubicacion.getLatitud(), ubicacion.getLongitud()) * costoKm;
+		this.costo = costoFijo + distanciaCoord(ubicacion.getLatitud(),ubicacion.getLongitud(),ubicacion.getLatitud(),ubicacion.getLongitud()) * costoKm;
 	}
 
 	public String toString() {
-		return "Envio horaHasta: " + horaHasta + ", horaDesde: " + horaDesde + ", costo: " + costo + ", ubicacion:"
-				+ ubicacion;
+		return "Envio horaHasta: " + horaHasta + ", horaDesde: " + horaDesde + ", costo: " + costo + ", ubicacion: "+ ubicacion;
 	}
 
 }
