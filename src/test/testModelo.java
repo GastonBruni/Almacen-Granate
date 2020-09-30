@@ -101,7 +101,7 @@ public class testModelo {
 		// Caso de uso 11: ESTA DEVOLVIENDO 0 OJO!!!!!!!!!!
 		carrito.setFecha(LocalDate.of(2020, 4, 12));
 		
-		System.out.println("El total es: "+carrito.calcularDescuentoDia(12, 29.20d));
+		System.out.println("El total de calcularDescuentoDia es: "+carrito.calcularDescuentoDia(12, 29.20d));
 		
 		// Caso de uso 12: 
 		System.out.println("El total es: "+carrito.calcularDescuentoEfectivo(15.40));
