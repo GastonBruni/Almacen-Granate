@@ -233,7 +233,19 @@ public class Comercio extends Actor {
 		}
 		return lstDiaRetiro.add(new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo));
 	}
+	
+	public boolean agregarArticulo(String nombre,String codBarras, double precio) {
 
+		int id = 1;
+		if (!lstArticulos.isEmpty()) {
+			id = lstArticulos.get(lstArticulos.size() - 1).getId() + 1;
+		}
+		return lstArticulos.add(new Articulo(id, nombre, codBarras, precio));
+	}
+	
+
+	
+	
 	// Devuelvo Lista DiaRetiro
 	public List<DiaRetiro> traerDiaRetiro() {
 		return this.lstDiaRetiro;
@@ -243,5 +255,10 @@ public class Comercio extends Actor {
 	public List<Carrito> traerCarrito() {
 		return this.lstCarrito;
 	}
+	
+	// Devuelvo Lista Articulos
+		public List<Articulo> traerArticulos() {
+			return this.lstArticulos;
+		}
 
 }

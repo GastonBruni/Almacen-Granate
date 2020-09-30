@@ -45,7 +45,7 @@ public class Articulo {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-
+	
 	public boolean validarCodBarras(String codBarras) throws Exception {
 		boolean cond = false;
 		int cod = codBarras.length();

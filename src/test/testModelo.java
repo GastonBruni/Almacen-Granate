@@ -54,37 +54,20 @@ public class testModelo {
 		
 		// Caso de uso 8:
 		//Agrego articulos para agregar al caso de uso 8.
-		Articulo articulo1 = new Articulo(1,"Salsa de tomate","7281938294331",75d);
-		Articulo articulo2 = new Articulo(2,"Leche Serenisima","7287623294334",45d);
-		Articulo articulo3 = new Articulo(3,"Rollo de cocina","7928018294333",30d);
-		Articulo articulo4 = new Articulo(4,"Azucar","7281821343332",40d);
-		Articulo articulo5 = new Articulo(5,"Mermelada","7281544562334",60d);
+		comercio.agregarArticulo("Salsa de tomate","7281938294331",75d);
+		comercio.agregarArticulo("Leche Serenisima","7287623294334",45d);
+		comercio.agregarArticulo("Rollo de cocina","7928018294333",30d);
+		comercio.agregarArticulo("Azucar","7281821343332",40d);
+		comercio.agregarArticulo("Mermelada","7281544562334",60d);
 		
+		System.out.println("Los articulos son: "+comercio.traerArticulos());
 		System.out.println(" ");
 
-		carrito.agregar(articulo1,9);
-		carrito.agregar(articulo2,4);
-		carrito.agregar(articulo3,7);
-		carrito.agregar(articulo4,3);
-		carrito.agregar(articulo5,2);
-		
-		//Sacamos del carrito x cantidad
-		carrito.sacarDelCarrito(articulo1, 1);
-		carrito.sacarDelCarrito(articulo2, 3);
-		
-		System.out.println(carrito.traerItemCarrito(articulo1));
-		System.out.println(carrito.traerItemCarrito(articulo3));
-		System.out.println(carrito.traerItemCarrito(articulo2));
-		System.out.println(carrito.traerItemCarrito(articulo4));
-		System.out.println(carrito.traerItemCarrito(articulo5));
-		
-		System.out.println(" ");
-		
 		// Caso de uso 7:
 		
 		//Devuelve exception
 		//articulo5.validarCodBarras("7281544562334543");
-		
+		Articulo articulo1 = new Articulo(5, "Coca Cola", "7928018294387", 55d);
 		System.out.println("Validacion codigo de barras: " + articulo1.validarCodBarras("7281938294331"));
 		System.out.println("Validacion codigo de barras: " + articulo1.validarCodBarras("7287623294334"));
 		System.out.println("Validacion codigo de barras: " + articulo1.validarCodBarras("7928018294333"));
@@ -92,8 +75,6 @@ public class testModelo {
 		System.out.println("Validacion codigo de barras: " + articulo1.validarCodBarras("7281544562334"));
 		
 		// Caso de uso 9: 
-
-		
 		System.out.println(" ");
 		ItemCarrito itemCarrito = new ItemCarrito(articulo1,5);
 		System.out.println("El SubTotal del carrito es: "+itemCarrito.calcularSubTotalItem());
