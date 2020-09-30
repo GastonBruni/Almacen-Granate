@@ -33,13 +33,12 @@ public class Comercio extends Actor {
 		this.lstArticulos = new ArrayList<Articulo>();
 		this.setCuit(cuit);
 	}
-	
-	public void setCuit(long cuit)throws Exception {
+
+	public void setCuit(long cuit) throws Exception {
 		validarIdentificadorUnico(cuit);
 		this.cuit = cuit;
 	}
-	
-	
+
 	// Constructor vacio para realizar los testeos.
 	public Comercio() {
 		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
@@ -128,39 +127,35 @@ public class Comercio extends Actor {
 	}
 
 	// 1) # validarIdentificadorUnico():boolean //valida CUIT
-	/* public boolean validarIdentificadorUnico(String cuit) throws Exception {
-		boolean cond = false;
-		int aux;
-		int num1 = Character.getNumericValue(cuit.charAt(0)); // x
-		int num2 = Character.getNumericValue(cuit.charAt(1)); // y
-		int num3 = Character.getNumericValue(cuit.charAt(2));
-		int num4 = Character.getNumericValue(cuit.charAt(3));
-		int num5 = Character.getNumericValue(cuit.charAt(4));
-		int num6 = Character.getNumericValue(cuit.charAt(5));
-		int num7 = Character.getNumericValue(cuit.charAt(6));
-		int num8 = Character.getNumericValue(cuit.charAt(7));
-		int num9 = Character.getNumericValue(cuit.charAt(8));
-		int num10 = Character.getNumericValue(cuit.charAt(9));
+	/*
+	 * public boolean validarIdentificadorUnico(String cuit) throws Exception {
+	 * boolean cond = false; int aux; int num1 =
+	 * Character.getNumericValue(cuit.charAt(0)); // x int num2 =
+	 * Character.getNumericValue(cuit.charAt(1)); // y int num3 =
+	 * Character.getNumericValue(cuit.charAt(2)); int num4 =
+	 * Character.getNumericValue(cuit.charAt(3)); int num5 =
+	 * Character.getNumericValue(cuit.charAt(4)); int num6 =
+	 * Character.getNumericValue(cuit.charAt(5)); int num7 =
+	 * Character.getNumericValue(cuit.charAt(6)); int num8 =
+	 * Character.getNumericValue(cuit.charAt(7)); int num9 =
+	 * Character.getNumericValue(cuit.charAt(8)); int num10 =
+	 * Character.getNumericValue(cuit.charAt(9));
+	 * 
+	 * int subTotal = num1 * 5 + num2 * 4 + num3 * 3 + num4 * 2 + num5 * 7 + num6 *
+	 * 6 + num7 * 5 + num8 * 4 + num9 * 3 + num10 * 2; int total = (subTotal % 11);
+	 * 
+	 * if (total != 0 && cuit.length() == 10) { aux = (11 - total); cond = true; }
+	 * else {
+	 * 
+	 * throw new Exception("Error: Cuit ingresado no es valido");
+	 * 
+	 * } return cond; }
+	 */
 
-		int subTotal = num1 * 5 + num2 * 4 + num3 * 3 + num4 * 2 + num5 * 7 + num6 * 6 + num7 * 5 + num8 * 4 + num9 * 3
-				+ num10 * 2;
-		int total = (subTotal % 11);
-
-		if (total != 0 && cuit.length() == 10) {
-			aux = (11 - total);
-			cond = true;
-		} else {
-
-			throw new Exception("Error: Cuit ingresado no es valido");
-
-		}
-		return cond;
-	} */
-	
 	public boolean validarIdentificadorUnico(long cuit) throws Exception {
 		boolean cond = false;
-		
-		if(cuit >= 1111111111l && cuit <= 9999999999l) {	
+
+		if (cuit >= 1111111111l && cuit <= 9999999999l) {
 			cond = true;
 		} else {
 			cond = false;
@@ -169,7 +164,6 @@ public class Comercio extends Actor {
 		}
 		return cond;
 	}
-	
 
 	// Devolver todas las horas que hay de retiro - lista de localTime localdatetime
 	// DEVUELVE LISTA DE LOCALDATE
@@ -185,23 +179,45 @@ public class Comercio extends Actor {
 		}
 		return hora;
 	}
-	
-	public List<Turno> turnosLibres(List<Turno>agenda){
+
+	// 3)
+	public List<Turno> generarTurnosLibres  (LocalDate fecha) {
 		List<Turno> turnos = new ArrayList<Turno>();
-		//For-Each
-		for(Turno turno : agenda) {
-			if(!turno.isOcupado())
-				turnos.add(turno);
+		// For-Each
+		for (DiaRetiro d : lstDiaRetiro) {
+			if (d.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
+				turnos.add(new Turno(fecha, d.getHoraDesde(), true));
+		}
+		}
+		return turnos;
+	}
+
+	// 4)
+	public List<Turno> traerTurnosOcupados(LocalDate fecha) {
+		List<Turno> turnos = new ArrayList<Turno>();
+		// For-Each
+		for (DiaRetiro d : lstDiaRetiro) {
+			if (d.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
+				turnos.add(new Turno(fecha, d.getHoraDesde(), false));
+		}
 		}
 		return turnos;
 	}
 	
-	public List<Turno> turnosOcupados(List<Turno>agenda){
+	// Devuelvo Lista DiaRetiro
+		public List<DiaRetiro> traerTurnosOcupados() {
+			return this.lstDiaRetiro;
+		}
+
+	// 5) + generarAgenda (LocalDate fecha) : Turno //retorna una lista de objetos
+	// Turno indicando
+	// si está ocupado o libre
+	public List<Turno> generarAgenda(LocalDate fecha) {
 		List<Turno> turnos = new ArrayList<Turno>();
-		//For-Each
-		for(Turno turno : agenda) {
-			if(!turno.isOcupado())
-				turnos.add(turno);
+		for (DiaRetiro d : lstDiaRetiro) {
+			if (d.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
+				turnos.add(new Turno(fecha, d.getHoraDesde(), true));
+			}
 		}
 		return turnos;
 	}
@@ -226,6 +242,5 @@ public class Comercio extends Actor {
 	public List<Carrito> traerCarrito() {
 		return this.lstCarrito;
 	}
-	
-	
+
 }
