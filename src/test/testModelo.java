@@ -2,6 +2,8 @@ package test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import modelo.*;
 
@@ -93,17 +95,20 @@ public class testModelo {
 		ItemCarrito itemCarrito = new ItemCarrito(articulo1,5);
 		System.out.println("El SubTotal del carrito es: "+itemCarrito.calcularSubTotalItem());
 		
-		// Caso de uso 10:
+		// Caso de uso 10:		
 		System.out.println("El total es: "+carrito.calcularTotalCarrito());
 		
-		// Caso de uso 11:
-		System.out.println("El total es: "+carrito.calcularDescuentoDia(2, 29.20d));
+		// Caso de uso 11: ESTA DEVOLVIENDO 0 OJO!!!!!!!!!!
+		carrito.setFecha(LocalDate.of(2020, 4, 12));
+		
+		System.out.println("El total es: "+carrito.calcularDescuentoDia(12, 29.20d));
 		
 		// Caso de uso 12: 
 		System.out.println("El total es: "+carrito.calcularDescuentoEfectivo(15.40));
 		
 		// Caso de uso 13: 
-		System.out.println("El total es: "+carrito.calcularDescuentoCarrito(4, 29.20d,15.40));
+		carrito.calcularDescuentoCarrito(4, 12d, 5d);
+		System.out.println("Descuento carrito: "+carrito.getDescuento());
 
 		// Caso de uso 15:
 		System.out.println("El total es: "+carrito.totalAPagarCarrito());

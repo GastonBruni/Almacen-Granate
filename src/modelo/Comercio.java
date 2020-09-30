@@ -183,10 +183,11 @@ public class Comercio extends Actor {
 	// 3)
 	public List<Turno> generarTurnosLibres  (LocalDate fecha) {
 		List<Turno> turnos = new ArrayList<Turno>();
+		boolean cond = true;
 		// For-Each
 		for (DiaRetiro d : lstDiaRetiro) {
 			if (d.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
-				turnos.add(new Turno(fecha, d.getHoraDesde(), true));
+				turnos.add(new Turno(fecha, d.getHoraDesde(), cond));
 		}
 		}
 		return turnos;

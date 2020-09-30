@@ -25,7 +25,7 @@ public class Carrito {
 		this.descuento = descuento;
 		this.cliente = cliente;
 		this.entrega = entrega;
-		this.lstItemCarrito = lstItemCarrito;
+		this.lstItemCarrito = new ArrayList<ItemCarrito>();
 	}
 
 	public Carrito() {
@@ -146,17 +146,21 @@ public class Carrito {
 	}
 	
 	public double calcularDescuentoDia(int diaDescuento, double porcentajeDescuento) {
-		int dia = 2;
-		double descuento = 0;
-		if(diaDescuento == dia) {
-			for(ItemCarrito i : lstItemCarrito) {
-				descuento = (i.getCantidad()/2) * (i.getArticulo().getPrecio()) * (porcentajeDescuento / 100);
+		double total = 0;
+		int cantidad = 0;
+		if (this.fecha.getDayOfMonth() == diaDescuento) {
+			for (ItemCarrito p : this.lstItemCarrito) {
+				if (p.getCantidad() >= 2) {
+					cantidad = p.getCantidad() / 2;
+					total = cantidad + p.getArticulo().getPrecio() + porcentajeDescuento / 100;
+				}
 			}
 		}
-		return descuento;
+
+		return total;
 	}
 
-	public double calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento,double porcentajeDescuentoEfectivo) {
+	public void calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento,double porcentajeDescuentoEfectivo) {
 		double descuento = 0;
 
 		if (calcularDescuentoEfectivo(porcentajeDescuentoEfectivo) < calcularDescuentoDia(diaDescuento, porcentajeDescuento)) {
@@ -165,7 +169,7 @@ public class Carrito {
 		} else {
 			descuento = calcularDescuentoEfectivo(porcentajeDescuentoEfectivo);
 		}
-		return descuento;
+		setDescuento(descuento);
 	}
 
 	// 10) + calcularTotalCarrito() : double
