@@ -62,12 +62,15 @@ public class testModelo {
 		
 		System.out.println(" ");
 
-		carrito.agregar(articulo1,2);
-		carrito.agregar(articulo3,4);
-		carrito.agregar(articulo2,1);
+		carrito.agregar(articulo1,9);
+		carrito.agregar(articulo2,4);
+		carrito.agregar(articulo3,7);
 		carrito.agregar(articulo4,3);
-		carrito.agregar(articulo5,1);
+		carrito.agregar(articulo5,2);
 		
+		//Sacamos del carrito x cantidad
+		carrito.sacarDelCarrito(articulo1, 1);
+		carrito.sacarDelCarrito(articulo2, 3);
 		
 		System.out.println(carrito.traerItemCarrito(articulo1));
 		System.out.println(carrito.traerItemCarrito(articulo3));
