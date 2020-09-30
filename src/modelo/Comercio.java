@@ -15,11 +15,11 @@ public class Comercio extends Actor {
 	private int porcentajeDescuentoEfectivo;
 	private List<DiaRetiro> lstDiaRetiro;
 	private List<Carrito> lstCarrito;
-	private List<Articulo> lstArticulos;
+	private List<Articulo> lstArticulo;
 
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
 			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo, DiaRetiro lstDiaRetiro,
-			Carrito lstCarrito, Articulo lstArticulos) throws Exception {
+			Carrito lstCarrito, Articulo lstArticulo) throws Exception {
 		super(id, contacto);
 		this.nombreComercio = nombreComercio;
 		this.cuit = cuit;
@@ -30,7 +30,7 @@ public class Comercio extends Actor {
 		this.porcentajeDescuentoEfectivo = porcentajeDescuentoEfectivo;
 		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
 		this.lstCarrito = new ArrayList<Carrito>();
-		this.lstArticulos = new ArrayList<Articulo>();
+		this.lstArticulo = new ArrayList<Articulo>();
 		this.setCuit(cuit);
 	}
 
@@ -43,7 +43,7 @@ public class Comercio extends Actor {
 	public Comercio() {
 		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
 		this.lstCarrito = new ArrayList<Carrito>();
-		this.lstArticulos = new ArrayList<Articulo>();
+		this.lstArticulo = new ArrayList<Articulo>();
 	}
 
 	public String getNombreComercio() {
@@ -82,8 +82,8 @@ public class Comercio extends Actor {
 		return lstCarrito;
 	}
 
-	public List<Articulo> getLstArticulos() {
-		return lstArticulos;
+	public List<Articulo> getlstArticulo() {
+		return lstArticulo;
 	}
 
 	public void setNombreComercio(String nombreComercio) {
@@ -122,8 +122,8 @@ public class Comercio extends Actor {
 		this.lstCarrito = lstCarrito;
 	}
 
-	public void setLstArticulos(List<Articulo> lstArticulos) {
-		this.lstArticulos = lstArticulos;
+	public void setlstArticulo(List<Articulo> lstArticulo) {
+		this.lstArticulo = lstArticulo;
 	}
 
 	// 1) # validarIdentificadorUnico():boolean //valida CUIT
@@ -237,10 +237,10 @@ public class Comercio extends Actor {
 	public boolean agregarArticulo(String nombre,String codBarras, double precio) {
 
 		int id = 1;
-		if (!lstArticulos.isEmpty()) {
-			id = lstArticulos.get(lstArticulos.size() - 1).getId() + 1;
+		if (!lstArticulo.isEmpty()) {
+			id = lstArticulo.get(lstArticulo.size() - 1).getId() + 1;
 		}
-		return lstArticulos.add(new Articulo(id, nombre, codBarras, precio));
+		return lstArticulo.add(new Articulo(id, nombre, codBarras, precio));
 	}
 	
 
@@ -258,7 +258,7 @@ public class Comercio extends Actor {
 	
 	// Devuelvo Lista Articulos
 		public List<Articulo> traerArticulos() {
-			return this.lstArticulos;
+			return this.lstArticulo;
 		}
 
 }
