@@ -28,11 +28,17 @@ public class Carrito {
 		this.lstItemCarrito = new ArrayList<ItemCarrito>();
 	}
 
+	public Carrito(int idCarrito, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,Cliente cliente, Entrega entrega) {
+		super();
+		this.lstItemCarrito = new ArrayList<ItemCarrito>();
+
+	}
+	
 	public Carrito() {
 		super();
 		this.lstItemCarrito = new ArrayList<ItemCarrito>();
-	}
 
+	}
 
 	public int getId() {
 		return id;
@@ -180,7 +186,7 @@ public class Carrito {
 		}
 		return total;
 	}
-
+	
 	public double totalAPagarCarrito() {
 		double total = 0;
 		total = calcularTotalCarrito() - this.descuento;

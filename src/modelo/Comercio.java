@@ -6,256 +6,284 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Comercio extends Actor {
+
 	private String nombreComercio;
 	private long cuit;
 	private double costoFijo;
 	private double costoPorKm;
 	private int diaDescuento;
-	private int porcentajeDescuentoDia;
-	private int porcentajeDescuentoEfectivo;
-	private List<DiaRetiro> lstDiaRetiro;
-	private List<Carrito> lstCarrito;
-	private List<Articulo> lstArticulo;
+	private int porcentajeDecuentoDia;
+	private int porcentajeDecuentoEfectivo;
+	private List<DiaRetiro> ltsDiaRetiro;
+	private List<Articulo> ltsArticulo;
+	private List<Carrito> ltsCarrito;
 
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
-			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo, DiaRetiro lstDiaRetiro,
-			Carrito lstCarrito, Articulo lstArticulo) throws Exception {
+			int diaDescuento, int porcentajeDecuentoDia, int porcentajeDecuentoEfectivo) throws Exception {
 		super(id, contacto);
 		this.nombreComercio = nombreComercio;
-		this.cuit = cuit;
+		this.setCuit(cuit);
 		this.costoFijo = costoFijo;
 		this.costoPorKm = costoPorKm;
 		this.diaDescuento = diaDescuento;
-		this.porcentajeDescuentoDia = porcentajeDescuentoDia;
-		this.porcentajeDescuentoEfectivo = porcentajeDescuentoEfectivo;
-		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
-		this.lstCarrito = new ArrayList<Carrito>();
-		this.lstArticulo = new ArrayList<Articulo>();
-		this.setCuit(cuit);
-	}
-
-	public void setCuit(long cuit) throws Exception {
-		validarIdentificadorUnico(cuit);
-		this.cuit = cuit;
-	}
-
-	// Constructor vacio para realizar los testeos.
-	public Comercio() {
-		this.lstDiaRetiro = new ArrayList<DiaRetiro>();
-		this.lstCarrito = new ArrayList<Carrito>();
-		this.lstArticulo = new ArrayList<Articulo>();
+		this.porcentajeDecuentoDia = porcentajeDecuentoDia;
+		this.porcentajeDecuentoEfectivo = porcentajeDecuentoEfectivo;
+		this.ltsDiaRetiro = new ArrayList<DiaRetiro>();
+		this.ltsArticulo = new ArrayList<Articulo>();
+		this.ltsCarrito = new ArrayList<Carrito>();
 	}
 
 	public String getNombreComercio() {
 		return nombreComercio;
 	}
 
+	public void setNombreComercio(String nombreComercio) {
+		this.nombreComercio = nombreComercio;
+	}
+
 	public long getCuit() {
 		return cuit;
+	}
+
+	public void setCuit(long cuit) throws Exception {
+		if (!this.validarIdentificadorUnico(cuit)) {
+			throw new Exception("Error: Cuit ingresado no es valido");
+		} else {
+			this.cuit = cuit;
+		}
+
 	}
 
 	public double getCostoFijo() {
 		return costoFijo;
 	}
 
-	public double getCostoPorKm() {
-		return costoPorKm;
-	}
-
-	public int getDiaDescuento() {
-		return diaDescuento;
-	}
-
-	public int getPorcentajeDescuentoDia() {
-		return porcentajeDescuentoDia;
-	}
-
-	public int getPorcentajeDescuentoEfectivo() {
-		return porcentajeDescuentoEfectivo;
-	}
-
-	public List<DiaRetiro> getLstDiaRetiro() {
-		return lstDiaRetiro;
-	}
-
-	public List<Carrito> getLstCarrito() {
-		return lstCarrito;
-	}
-
-	public List<Articulo> getlstArticulo() {
-		return lstArticulo;
-	}
-
-	public void setNombreComercio(String nombreComercio) {
-		this.nombreComercio = nombreComercio;
-	}
-
-	public void setCuit1(long cuit) {
-		this.cuit = cuit;
-	}
-
 	public void setCostoFijo(double costoFijo) {
 		this.costoFijo = costoFijo;
+	}
+
+	public double getCostoPorKm() {
+		return costoPorKm;
 	}
 
 	public void setCostoPorKm(double costoPorKm) {
 		this.costoPorKm = costoPorKm;
 	}
 
+	public int getDiaDescuento() {
+		return diaDescuento;
+	}
+
 	public void setDiaDescuento(int diaDescuento) {
 		this.diaDescuento = diaDescuento;
 	}
 
-	public void setPorcentajeDescuentoDia(int porcentajeDescuentoDia) {
-		this.porcentajeDescuentoDia = porcentajeDescuentoDia;
+	public int getPorcentajeDecuentoDia() {
+		return porcentajeDecuentoDia;
 	}
 
-	public void setPorcentajeDescuentoEfectivo(int porcentajeDescuentoEfectivo) {
-		this.porcentajeDescuentoEfectivo = porcentajeDescuentoEfectivo;
+	public void setPorcentajeDecuentoDia(int porcentajeDecuentoDia) {
+		this.porcentajeDecuentoDia = porcentajeDecuentoDia;
 	}
 
-	public void setLstDiaRetiro(List<DiaRetiro> lstDiaRetiro) {
-		this.lstDiaRetiro = lstDiaRetiro;
+	public int getPorcentajeDecuentoEfectivo() {
+		return porcentajeDecuentoEfectivo;
 	}
 
-	public void setLstCarrito(List<Carrito> lstCarrito) {
-		this.lstCarrito = lstCarrito;
+	public void setPorcentajeDecuentoEfectivo(int porcentajeDecuentoEfectivo) {
+		this.porcentajeDecuentoEfectivo = porcentajeDecuentoEfectivo;
 	}
 
-	public void setlstArticulo(List<Articulo> lstArticulo) {
-		this.lstArticulo = lstArticulo;
+	public List<DiaRetiro> getLtsDiaRetiro() {
+		return ltsDiaRetiro;
 	}
 
-	// 1) # validarIdentificadorUnico():boolean //valida CUIT
-	/*
-	 * public boolean validarIdentificadorUnico(String cuit) throws Exception {
-	 * boolean cond = false; int aux; int num1 =
-	 * Character.getNumericValue(cuit.charAt(0)); // x int num2 =
-	 * Character.getNumericValue(cuit.charAt(1)); // y int num3 =
-	 * Character.getNumericValue(cuit.charAt(2)); int num4 =
-	 * Character.getNumericValue(cuit.charAt(3)); int num5 =
-	 * Character.getNumericValue(cuit.charAt(4)); int num6 =
-	 * Character.getNumericValue(cuit.charAt(5)); int num7 =
-	 * Character.getNumericValue(cuit.charAt(6)); int num8 =
-	 * Character.getNumericValue(cuit.charAt(7)); int num9 =
-	 * Character.getNumericValue(cuit.charAt(8)); int num10 =
-	 * Character.getNumericValue(cuit.charAt(9));
-	 * 
-	 * int subTotal = num1 * 5 + num2 * 4 + num3 * 3 + num4 * 2 + num5 * 7 + num6 *
-	 * 6 + num7 * 5 + num8 * 4 + num9 * 3 + num10 * 2; int total = (subTotal % 11);
-	 * 
-	 * if (total != 0 && cuit.length() == 10) { aux = (11 - total); cond = true; }
-	 * else {
-	 * 
-	 * throw new Exception("Error: Cuit ingresado no es valido");
-	 * 
-	 * } return cond; }
-	 */
+	public void setLtsDiaRetiro(List<DiaRetiro> ltsDiaRetiro) {
+		this.ltsDiaRetiro = ltsDiaRetiro;
+	}
 
-	public boolean validarIdentificadorUnico(long cuit) throws Exception {
+	public List<Articulo> getLtsArticulo() {
+		return ltsArticulo;
+	}
+
+	public void setLtsArticulo(List<Articulo> ltsArticulo) {
+		this.ltsArticulo = ltsArticulo;
+	}
+
+	public List<Carrito> getLtsCarrito() {
+		return ltsCarrito;
+	}
+
+	public void setLtsCarrito(List<Carrito> ltsCarrito) {
+		this.ltsCarrito = ltsCarrito;
+	}
+
+	
+	public boolean validarIdentificadorUnico(long identificador) {
 		boolean cond = false;
-
-		if (cuit >= 1111111111l && cuit <= 9999999999l) {
+		if (identificador >= 11111111l && identificador <= 9999999999l) {
 			cond = true;
-		} else {
-			cond = false;
-			throw new Exception("Error: Cuit ingresado no es valido");
-
 		}
 		return cond;
 	}
 
-	// Devolver todas las horas que hay de retiro - lista de localTime localdatetime
-	// DEVUELVE LISTA DE LOCALDATE
-	// 2) + traerHoraRetiro (LocalDate fecha): LocalTime
+	
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		long temp;
+		temp = Double.doubleToLongBits(costoFijo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(costoPorKm);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (int) (cuit ^ (cuit >>> 32));
+		result = prime * result + diaDescuento;
+		result = prime * result + ((ltsArticulo == null) ? 0 : ltsArticulo.hashCode());
+		result = prime * result + ((ltsCarrito == null) ? 0 : ltsCarrito.hashCode());
+		result = prime * result + ((ltsDiaRetiro == null) ? 0 : ltsDiaRetiro.hashCode());
+		result = prime * result + ((nombreComercio == null) ? 0 : nombreComercio.hashCode());
+		result = prime * result + porcentajeDecuentoDia;
+		result = prime * result + porcentajeDecuentoEfectivo;
+		return result;
+	}
+
+	
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Comercio other = (Comercio) obj;
+		if (Double.doubleToLongBits(costoFijo) != Double.doubleToLongBits(other.costoFijo))
+			return false;
+		if (Double.doubleToLongBits(costoPorKm) != Double.doubleToLongBits(other.costoPorKm))
+			return false;
+		if (cuit != other.cuit)
+			return false;
+		if (diaDescuento != other.diaDescuento)
+			return false;
+		if (ltsArticulo == null) {
+			if (other.ltsArticulo != null)
+				return false;
+		} else if (!ltsArticulo.equals(other.ltsArticulo))
+			return false;
+		if (ltsCarrito == null) {
+			if (other.ltsCarrito != null)
+				return false;
+		} else if (!ltsCarrito.equals(other.ltsCarrito))
+			return false;
+		if (ltsDiaRetiro == null) {
+			if (other.ltsDiaRetiro != null)
+				return false;
+		} else if (!ltsDiaRetiro.equals(other.ltsDiaRetiro))
+			return false;
+		if (nombreComercio == null) {
+			if (other.nombreComercio != null)
+				return false;
+		} else if (!nombreComercio.equals(other.nombreComercio))
+			return false;
+		if (porcentajeDecuentoDia != other.porcentajeDecuentoDia)
+			return false;
+		if (porcentajeDecuentoEfectivo != other.porcentajeDecuentoEfectivo)
+			return false;
+		return true;
+	}
+
+	public boolean agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) {
+
+		int idDiaRetiro = 1;
+		if (!ltsDiaRetiro.isEmpty()) {
+			idDiaRetiro = ltsDiaRetiro.get(ltsDiaRetiro.size() - 1).getId() + 1;
+		}
+		return ltsDiaRetiro.add(new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo));
+	}
 
 	public List<LocalTime> traerHoraRetiro(LocalDate fecha) {
 		List<LocalTime> hora = new ArrayList<LocalTime>();
-		int dia = fecha.getDayOfWeek().getValue();
-		for (DiaRetiro p : lstDiaRetiro) {
-			if (p.getDiaSemana() == dia) {
+
+		for (DiaRetiro p : ltsDiaRetiro) {
+			if (p.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
 				hora.add(p.getHoraDesde());
 			}
 		}
 		return hora;
 	}
 
-	// 3)
-	public List<Turno> generarTurnosLibres  (LocalDate fecha) {
-		List<Turno> turnos = new ArrayList<Turno>();
-		boolean cond = true;
-		// For-Each
-		for (DiaRetiro d : lstDiaRetiro) {
-			if (d.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
-				turnos.add(new Turno(fecha, d.getHoraDesde(), cond));
-		}
-		}
-		return turnos;
-	}
-
-	// 4)
 	public List<Turno> traerTurnosOcupados(LocalDate fecha) {
-		List<Turno> turnos = new ArrayList<Turno>();
-		// For-Each
-		for (DiaRetiro d : lstDiaRetiro) {
-			if (d.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
-				turnos.add(new Turno(fecha, d.getHoraDesde(), false));
+		List<Turno> turno = new ArrayList<Turno>();
+		List<LocalTime> hora = this.traerHoraRetiro(fecha);
+		for (LocalTime p : hora) {
+			turno.add(new Turno(fecha, p, true));
 		}
-		}
-		return turnos;
+		return turno;
 	}
-	
-	// Devuelvo Lista DiaRetiro
-		public List<DiaRetiro> traerTurnosOcupados() {
-			return this.lstDiaRetiro;
-		}
 
-	// 5) + generarAgenda (LocalDate fecha) : Turno //retorna una lista de objetos
-	// Turno indicando
-	// si está ocupado o libre
-	public List<Turno> generarAgenda(LocalDate fecha) {
-		List<Turno> turnos = new ArrayList<Turno>();
-		for (DiaRetiro d : lstDiaRetiro) {
-			if (d.getDiaSemana() == fecha.getDayOfWeek().getValue()) {
-				turnos.add(new Turno(fecha, d.getHoraDesde(), true));
+	public boolean agregarArticulo(String nombre, String codBarras, double precio) throws Exception {
+		if (traerArticulo(codBarras) == null) {
+			int id = 1;
+			if (!ltsArticulo.isEmpty()) {
+				id = ltsArticulo.get(ltsArticulo.size() - 1).getId() + 1;
+			}
+			return ltsArticulo.add(new Articulo(id, nombre, codBarras, precio));
+		} else {
+			throw new Exception("el producto ya existe en la lista");
+		}
+	}
+
+	public Articulo traerArticulo(String codBarras) {
+		Articulo articulo = null;
+		int contador = 0;
+		while (contador < this.ltsArticulo.size() && articulo == null) {
+			if (this.ltsArticulo.get(contador).getCodBarras().equals(codBarras)) {
+				articulo = this.ltsArticulo.get(contador);
+			} else {
+				contador++;
 			}
 		}
-		return turnos;
+		return articulo;
 	}
 
-	// 6) + agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime
-	// horaHasta, int intervalo):boolean
-	public boolean agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) {
-
-		int idDiaRetiro = 1;
-		if (!lstDiaRetiro.isEmpty()) {
-			idDiaRetiro = lstDiaRetiro.get(lstDiaRetiro.size() - 1).getId() + 1;
+	public boolean agregarCarrito(LocalDate fecha, LocalTime hora, boolean cerrado, double descuento, Cliente cliente,Entrega entrega)throws Exception{
+		Carrito carrito=traerUltimoCarrito(cliente);
+		if(carrito==null || carrito.isCerrado()==true) {
+				
+		int idCarrito = 1;
+		if (!ltsCarrito.isEmpty()) {
+			idCarrito = ltsCarrito.get(ltsCarrito.size() - 1).getId() + 1;
 		}
-		return lstDiaRetiro.add(new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo));
+		return ltsCarrito.add(new Carrito(idCarrito, fecha, hora, cerrado, descuento, cliente, entrega));
+		}
+		else {
+			throw new Exception("Tiene un carrito abierto");
+			
+		}
+	}
+
+	public List<Carrito> traerCarrito(Cliente cliente) {
+
+		List<Carrito> ltsCarrito = new ArrayList<Carrito>();
+		for (Carrito p : this.ltsCarrito) {
+			if (p.getCliente().equals(cliente)) {
+				ltsCarrito.add(p);
+			}
+		}
+		return ltsCarrito;
+	}
+
+	public Carrito traerUltimoCarrito(Cliente cliente) {
+		Carrito carrito = null;
+		List<Carrito> ltsCarrito = traerCarrito(cliente);
+		if (ltsCarrito.isEmpty() == false) {
+			carrito = ltsCarrito.get(ltsCarrito.size() - 1);
+
+		}
+		return carrito;
 	}
 	
-	public boolean agregarArticulo(String nombre,String codBarras, double precio) {
-
-		int id = 1;
-		if (!lstArticulo.isEmpty()) {
-			id = lstArticulo.get(lstArticulo.size() - 1).getId() + 1;
-		}
-		return lstArticulo.add(new Articulo(id, nombre, codBarras, precio));
-	}
-	
-	// Devuelvo Lista DiaRetiro
-	public List<DiaRetiro> traerDiaRetiro() {
-		return this.lstDiaRetiro;
-	}
-
-	// Devuelvo Lista DiaRetiro
 	public List<Carrito> traerCarrito() {
-		return this.lstCarrito;
+		return ltsCarrito;
 	}
-	
-	// Devuelvo Lista Articulos
-		public List<Articulo> traerArticulos() {
-			return this.lstArticulo;
-		}
 
 }
