@@ -77,7 +77,7 @@ public class testModelo {
 		}
 		System.out.println("");
 		System.out.println("-------------------------------");
-
+		
 		try {
 			//En esta instancia agregarCarrito la lista la devuelve vacia ya que no se le cargaron items al mismo!!!
 			comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.of(4, 45), false, 15,comercio.traerCliente(41365026), null);
@@ -93,6 +93,10 @@ public class testModelo {
 			carrito.agregar(comercio.traerArticulo("7281821343332"), 2);
 			System.out.println(carrito.traerItemCarrito());
 			
+			
+			carrito.calcularDescuentoCarrito(comercio.getDiaDescuento(), comercio.getPorcentajeDecuentoDia(), comercio.getPorcentajeDecuentoEfectivo());
+			System.out.println("total a pagar "+carrito.calcularTotalCarrito());
+			
 			System.out.println("-------------------------------");
 			System.out.println("Sacamos articulos del carrito: ");
 			
@@ -105,6 +109,18 @@ public class testModelo {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
+		System.out.println("------------------------------------");
+		System.out.println("Se intenta generar 2 carrito para un cliente sin cerrar el primero: ");
+		try {
+			comercio.agregarCliente(null, "lopez","jorge" , 12344444l);
+			comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.now(), false, 0.00, comercio.traerCliente(12344444l),null);
+			comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.now(), false, 0.00, comercio.traerCliente(12344444l),null);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		     System.out.println(e1.getMessage());
+		}
+		
+		
 		System.out.println(" ");
 
 		Ubicacion miCasita = new Ubicacion(3.8, 1.3);
