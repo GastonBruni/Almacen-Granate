@@ -32,7 +32,7 @@ public class testModelo {
 		}
 
 		System.out.println("-------------------------------");
-		System.out.println("se agregan productos iguales a la lista");
+		System.out.println("Se agregan productos iguales a la lista:");
 		try {
 			comercio = new Comercio(0, null, "dia", 38526642l, 25.00, 50, 10, 26, 10);
 			comercio.agregarArticulo("Salsa de tomate", "7281938294331", 75d);
@@ -79,6 +79,7 @@ public class testModelo {
 		System.out.println("-------------------------------");
 
 		try {
+			//En esta instancia agregarCarrito la lista la devuelve vacia ya que no se le cargaron items al mismo!!!
 			comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.of(4, 45), false, 15,comercio.traerCliente(41365026), null);
 			System.out.println(comercio.traerUltimoCarrito(comercio.traerCliente(41365026)));
 			//comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.now(), false, 0.00, comercio.traerCliente(41365026),null);
@@ -87,9 +88,18 @@ public class testModelo {
 			System.out.println("-------------------------------");
 			System.out.println("Agregamos articulos al carrito: ");
 			System.out.println("");
-			carrito.agregar(comercio.traerArticulo("7287623294334"), 5);
-			carrito.agregar(comercio.traerArticulo("7281938294331"), 3);
+			carrito.agregar(comercio.traerArticulo("7287623294334"), 7);
+			carrito.agregar(comercio.traerArticulo("7281938294331"), 5);
 			carrito.agregar(comercio.traerArticulo("7281821343332"), 2);
+			System.out.println(carrito.traerItemCarrito());
+			
+			System.out.println("-------------------------------");
+			System.out.println("Sacamos articulos del carrito: ");
+			
+			carrito.sacarDelCarrito(comercio.traerArticulo("7287623294334"), 2);
+			carrito.sacarDelCarrito(comercio.traerArticulo("7287623294334"), 1);
+			//Este carrito no lo va a mostrar ya que quedo vacio!!
+			carrito.sacarDelCarrito(comercio.traerArticulo("7287623294334"), 2);
 			System.out.println(carrito.traerItemCarrito());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
