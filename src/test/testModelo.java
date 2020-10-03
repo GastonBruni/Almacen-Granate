@@ -65,11 +65,14 @@ public class testModelo {
 			System.out.println(e.getMessage());
 		}
 		
+		System.out.println("");
 		System.out.println("-------------------------------");
 		System.out.println("Agregamos cliente y lo traemos por dni");
 		try {
 			comercio.agregarCliente(contacto, "Alfonso", "Gabriel", 41365026);
-			comercio.traerCliente(41365026);
+		//Si se lo agrega de vuelta devuelve una exeption
+		//comercio.agregarCliente(contacto, "Alfonso", "Gabriel", 41365026);
+			System.out.println(comercio.traerCliente(41365026));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());

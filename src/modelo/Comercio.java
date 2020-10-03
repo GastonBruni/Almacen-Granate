@@ -33,6 +33,7 @@ public class Comercio extends Actor {
 		this.ltsDiaRetiro = new ArrayList<DiaRetiro>();
 		this.ltsArticulo = new ArrayList<Articulo>();
 		this.ltsCarrito = new ArrayList<Carrito>();
+		this.lstCliente = new ArrayList<Cliente>();
 	}
 
 	public Comercio() throws Exception{
@@ -127,6 +128,14 @@ public class Comercio extends Actor {
 	public void setLtsCarrito(List<Carrito> ltsCarrito) {
 		this.ltsCarrito = ltsCarrito;
 	}
+	
+	public List<Cliente> getLtsCliente() {
+		return lstCliente;
+	}
+
+	public void setLtsCliente(List<Cliente> lstCliente) {
+		this.lstCliente = lstCliente;
+	}
 
 	
 	public boolean validarIdentificadorUnico(long identificador) {
@@ -151,6 +160,7 @@ public class Comercio extends Actor {
 		result = prime * result + ((ltsArticulo == null) ? 0 : ltsArticulo.hashCode());
 		result = prime * result + ((ltsCarrito == null) ? 0 : ltsCarrito.hashCode());
 		result = prime * result + ((ltsDiaRetiro == null) ? 0 : ltsDiaRetiro.hashCode());
+		result = prime * result + ((lstCliente == null) ? 0 : lstCliente.hashCode());
 		result = prime * result + ((nombreComercio == null) ? 0 : nombreComercio.hashCode());
 		result = prime * result + porcentajeDecuentoDia;
 		result = prime * result + porcentajeDecuentoEfectivo;
@@ -306,7 +316,7 @@ public class Comercio extends Actor {
 			}
 			return lstCliente.add(new Cliente(id, contacto, apellido, nombre, dni));
 		} else {
-			throw new Exception("el producto ya existe en la lista");
+			throw new Exception("Error: el cliente ya fue cargado");
 		}
 	}
 
