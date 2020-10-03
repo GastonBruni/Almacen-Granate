@@ -38,7 +38,6 @@ public class testModelo {
 			comercio.agregarArticulo("Salsa de tomate", "7281938294331", 75d);
 			comercio.agregarArticulo("Salsa de tomate", "7281938294331", 75d);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 		System.out.println("------------------------------------");
@@ -50,7 +49,7 @@ public class testModelo {
 			comercio.agregarArticulo("Rollo de cocina", "7928018294333", 30d);
 			comercio.agregarArticulo("Azucar", "7281821343332", 40d);
 			comercio.agregarArticulo("Mermelada", "7281544562334", 60d);
-			
+
 			System.out.println("Traemos los articulos por codigo de barras: ");
 			System.out.print(comercio.traerArticulo("7287623294334"));
 			System.out.print(comercio.traerArticulo("7281938294331"));
@@ -59,20 +58,39 @@ public class testModelo {
 			System.out.print(comercio.traerArticulo("7281938294331"));
 			System.out.println(comercio.traerArticulo("7281544562334"));
 
-			comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.now(), false, 0.00, cliente, null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-		
+
 		System.out.println("");
 		System.out.println("-------------------------------");
 		System.out.println("Agregamos cliente y lo traemos por dni");
 		try {
 			comercio.agregarCliente(contacto, "Alfonso", "Gabriel", 41365026);
-		//Si se lo agrega de vuelta devuelve una exeption
-		//comercio.agregarCliente(contacto, "Alfonso", "Gabriel", 41365026);
+			// Si se lo agrega de vuelta devuelve una exeption
+			// comercio.agregarCliente(contacto, "Alfonso", "Gabriel", 41365026);
 			System.out.println(comercio.traerCliente(41365026));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		System.out.println("");
+		System.out.println("-------------------------------");
+
+		try {
+			comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.of(4, 45), false, 15,comercio.traerCliente(41365026), null);
+			System.out.println(comercio.traerUltimoCarrito(comercio.traerCliente(41365026)));
+			//comercio.agregarCarrito(LocalDate.of(2020, 10, 2), LocalTime.now(), false, 0.00, comercio.traerCliente(41365026),null);
+			Carrito carrito= comercio.traerUltimoCarrito(comercio.traerCliente(41365026));
+			System.out.println("");
+			System.out.println("-------------------------------");
+			System.out.println("Agregamos articulos al carrito: ");
+			System.out.println("");
+			carrito.agregar(comercio.traerArticulo("7287623294334"), 5);
+			carrito.agregar(comercio.traerArticulo("7281938294331"), 3);
+			carrito.agregar(comercio.traerArticulo("7281821343332"), 2);
+			System.out.println(carrito.traerItemCarrito());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());

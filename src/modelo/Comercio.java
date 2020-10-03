@@ -17,8 +17,7 @@ public class Comercio extends Actor {
 	private List<DiaRetiro> ltsDiaRetiro;
 	private List<Articulo> ltsArticulo;
 	private List<Carrito> ltsCarrito;
-	private List<Cliente> lstCliente;
-
+	private List<Cliente> ltsCliente;
 
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
 			int diaDescuento, int porcentajeDecuentoDia, int porcentajeDecuentoEfectivo) throws Exception {
@@ -33,17 +32,17 @@ public class Comercio extends Actor {
 		this.ltsDiaRetiro = new ArrayList<DiaRetiro>();
 		this.ltsArticulo = new ArrayList<Articulo>();
 		this.ltsCarrito = new ArrayList<Carrito>();
-		this.lstCliente = new ArrayList<Cliente>();
+		this.ltsCliente = new ArrayList<Cliente>();
 	}
 
-	public Comercio() throws Exception{
-		this.ltsDiaRetiro = new ArrayList<DiaRetiro>();
-		this.ltsArticulo = new ArrayList<Articulo>();
-		this.ltsCarrito = new ArrayList<Carrito>();
-		this.lstCliente = new ArrayList<Cliente>();
+	public List<Cliente> getLtsCliente() {
+		return ltsCliente;
 	}
-	
-	
+
+	public void setLtsCliente(List<Cliente> ltsCliente) {
+		this.ltsCliente = ltsCliente;
+	}
+
 	public String getNombreComercio() {
 		return nombreComercio;
 	}
@@ -64,7 +63,7 @@ public class Comercio extends Actor {
 		}
 
 	}
-
+	
 	public double getCostoFijo() {
 		return costoFijo;
 	}
@@ -128,25 +127,16 @@ public class Comercio extends Actor {
 	public void setLtsCarrito(List<Carrito> ltsCarrito) {
 		this.ltsCarrito = ltsCarrito;
 	}
-	
-	public List<Cliente> getLtsCliente() {
-		return lstCliente;
-	}
 
-	public void setLtsCliente(List<Cliente> lstCliente) {
-		this.lstCliente = lstCliente;
-	}
-
-	
-	public boolean validarIdentificadorUnico(long identificador) {
+	public boolean validarIdentificadorUnico(long cuit) {
 		boolean cond = false;
-		if (identificador >= 11111111l && identificador <= 9999999999l) {
+		if (cuit >= 11111111l && cuit <= 9999999999l) {
 			cond = true;
 		}
 		return cond;
 	}
 
-	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
@@ -159,15 +149,15 @@ public class Comercio extends Actor {
 		result = prime * result + diaDescuento;
 		result = prime * result + ((ltsArticulo == null) ? 0 : ltsArticulo.hashCode());
 		result = prime * result + ((ltsCarrito == null) ? 0 : ltsCarrito.hashCode());
+		result = prime * result + ((ltsCliente == null) ? 0 : ltsCliente.hashCode());
 		result = prime * result + ((ltsDiaRetiro == null) ? 0 : ltsDiaRetiro.hashCode());
-		result = prime * result + ((lstCliente == null) ? 0 : lstCliente.hashCode());
 		result = prime * result + ((nombreComercio == null) ? 0 : nombreComercio.hashCode());
 		result = prime * result + porcentajeDecuentoDia;
 		result = prime * result + porcentajeDecuentoEfectivo;
 		return result;
 	}
 
-	
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -193,6 +183,11 @@ public class Comercio extends Actor {
 			if (other.ltsCarrito != null)
 				return false;
 		} else if (!ltsCarrito.equals(other.ltsCarrito))
+			return false;
+		if (ltsCliente == null) {
+			if (other.ltsCliente != null)
+				return false;
+		} else if (!ltsCliente.equals(other.ltsCliente))
 			return false;
 		if (ltsDiaRetiro == null) {
 			if (other.ltsDiaRetiro != null)
@@ -265,19 +260,19 @@ public class Comercio extends Actor {
 		return articulo;
 	}
 
-	public boolean agregarCarrito(LocalDate fecha, LocalTime hora, boolean cerrado, double descuento, Cliente cliente,Entrega entrega)throws Exception{
-		Carrito carrito=traerUltimoCarrito(cliente);
-		if(carrito==null || carrito.isCerrado()==true) {
-				
-		int idCarrito = 1;
-		if (!ltsCarrito.isEmpty()) {
-			idCarrito = ltsCarrito.get(ltsCarrito.size() - 1).getId() + 1;
-		}
-		return ltsCarrito.add(new Carrito(idCarrito, fecha, hora, cerrado, descuento, cliente, entrega));
-		}
-		else {
-			throw new Exception("Tiene un carrito abierto");
-			
+	public boolean agregarCarrito(LocalDate fecha, LocalTime hora, boolean cerrado, double descuento, Cliente cliente,
+			Entrega entrega) throws Exception {
+		Carrito carrito = traerUltimoCarrito(cliente);
+		if (carrito == null || carrito.isCerrado() == true) {
+
+			int idCarrito = 1;
+			if (!ltsCarrito.isEmpty()) {
+				idCarrito = ltsCarrito.get(ltsCarrito.size() - 1).getId() + 1;
+			}
+			return ltsCarrito.add(new Carrito(idCarrito, fecha, hora, cerrado, descuento, cliente, entrega));
+		} else {
+			throw new Exception("Este cliente ya tiene un carrito abierto");
+
 		}
 	}
 
@@ -301,36 +296,32 @@ public class Comercio extends Actor {
 		}
 		return carrito;
 	}
-	
-	public List<Carrito> traerCarrito() {
-		return ltsCarrito;
-	}
-	
-	public boolean agregarCliente(Contacto contacto, String apellido, String nombre, long dni) throws Exception {
-		// Declaro For-Each
-
-		if (traerCliente(dni) == null) {
-			int id = 1;
-			if (!lstCliente.isEmpty()) {
-				id = lstCliente.get(lstCliente.size() - 1).getId() + 1;
-			}
-			return lstCliente.add(new Cliente(id, contacto, apellido, nombre, dni));
-		} else {
-			throw new Exception("Error: el cliente ya fue cargado");
-		}
-	}
 
 	public Cliente traerCliente(long dni) {
 		Cliente cliente = null;
 		int contador = 0;
-		while (contador < this.lstCliente.size() && cliente == null) {
-			if (this.lstCliente.get(contador).getDni() == (dni)) {
-				cliente = this.lstCliente.get(contador);
+		while (contador < this.ltsCliente.size() && cliente == null) {
+			if (this.ltsCliente.get(contador).getDni() == (dni)) {
+				cliente = this.ltsCliente.get(contador);
 			} else {
 				contador++;
 			}
 		}
 		return cliente;
+	}
+
+	public boolean agregarCliente(Contacto contacto, String apellido, String nombre, long dni) throws Exception {
+		
+
+		if (traerCliente(dni) == null) {
+			int id = 1;
+			if (!ltsCliente.isEmpty()) {
+				id = ltsCliente.get(ltsCliente.size() - 1).getId() + 1;
+			}
+			return ltsCliente.add(new Cliente(id, contacto, apellido, nombre, dni));
+		} else {
+			throw new Exception("El cliente ya existe en la lista");
+		}
 	}
 
 }
