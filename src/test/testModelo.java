@@ -94,8 +94,8 @@ public class testModelo {
 			System.out.println(carrito.traerItemCarrito());
 			
 			
-			carrito.calcularDescuentoCarrito(comercio.getDiaDescuento(), comercio.getPorcentajeDecuentoDia(), comercio.getPorcentajeDecuentoEfectivo());
-			System.out.println("total a pagar "+carrito.calcularTotalCarrito());
+			//carrito.calcularDescuentoCarrito(comercio.getDiaDescuento(), comercio.getPorcentajeDecuentoDia(), comercio.getPorcentajeDecuentoEfectivo());
+			System.out.println("El total a pagar es:"+carrito.calcularTotalCarrito());
 			
 			System.out.println("-------------------------------");
 			System.out.println("Sacamos articulos del carrito: ");
@@ -105,6 +105,8 @@ public class testModelo {
 			//Este carrito no lo va a mostrar ya que quedo vacio!!
 			carrito.sacarDelCarrito(comercio.traerArticulo("7287623294334"), 2);
 			System.out.println(carrito.traerItemCarrito());
+			System.out.println("El total a pagar ahora es:"+carrito.calcularTotalCarrito());
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
