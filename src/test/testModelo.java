@@ -64,6 +64,16 @@ public class testModelo {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
+		
+		System.out.println("-------------------------------");
+		System.out.println("Agregamos cliente y lo traemos por dni");
+		try {
+			comercio.agregarCliente(contacto, "Alfonso", "Gabriel", 41365026);
+			comercio.traerCliente(41365026);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 		System.out.println(" ");
 
 		Ubicacion miCasita = new Ubicacion(3.8, 1.3);

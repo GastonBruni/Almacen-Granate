@@ -17,6 +17,8 @@ public class Comercio extends Actor {
 	private List<DiaRetiro> ltsDiaRetiro;
 	private List<Articulo> ltsArticulo;
 	private List<Carrito> ltsCarrito;
+	private List<Cliente> lstCliente;
+
 
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
 			int diaDescuento, int porcentajeDecuentoDia, int porcentajeDecuentoEfectivo) throws Exception {
@@ -33,6 +35,14 @@ public class Comercio extends Actor {
 		this.ltsCarrito = new ArrayList<Carrito>();
 	}
 
+	public Comercio() throws Exception{
+		this.ltsDiaRetiro = new ArrayList<DiaRetiro>();
+		this.ltsArticulo = new ArrayList<Articulo>();
+		this.ltsCarrito = new ArrayList<Carrito>();
+		this.lstCliente = new ArrayList<Cliente>();
+	}
+	
+	
 	public String getNombreComercio() {
 		return nombreComercio;
 	}
@@ -284,6 +294,33 @@ public class Comercio extends Actor {
 	
 	public List<Carrito> traerCarrito() {
 		return ltsCarrito;
+	}
+	
+	public boolean agregarCliente(Contacto contacto, String apellido, String nombre, long dni) throws Exception {
+		// Declaro For-Each
+
+		if (traerCliente(dni) == null) {
+			int id = 1;
+			if (!lstCliente.isEmpty()) {
+				id = lstCliente.get(lstCliente.size() - 1).getId() + 1;
+			}
+			return lstCliente.add(new Cliente(id, contacto, apellido, nombre, dni));
+		} else {
+			throw new Exception("el producto ya existe en la lista");
+		}
+	}
+
+	public Cliente traerCliente(long dni) {
+		Cliente cliente = null;
+		int contador = 0;
+		while (contador < this.lstCliente.size() && cliente == null) {
+			if (this.lstCliente.get(contador).getDni() == (dni)) {
+				cliente = this.lstCliente.get(contador);
+			} else {
+				contador++;
+			}
+		}
+		return cliente;
 	}
 
 }
