@@ -10,8 +10,8 @@ public class testModelo {
 	public static void main(String[] args) throws Exception {
 
 		Ubicacion walmart = new Ubicacion(2.5, 1.7);
-		Contacto contacto = new Contacto("walmart@super.com", "1138883572", walmart);
-		Comercio comercio = new Comercio(1, contacto, "Wallmart", 2040321237, 500, 125, 2, 15, 25);
+		Comercio comercio= new Comercio(0,new Contacto("coto@gmail.com","12345678",new Ubicacion(-34.781323, -58.405975)), "coto",38526642l,400.00,100,1,25,50);
+		Contacto contacto = new Contacto("coto@super.com", "1138883572", walmart);
 		Cliente cliente = new Cliente();
 		Envio envio = new Envio();
 		Articulo articulo = new Articulo();
