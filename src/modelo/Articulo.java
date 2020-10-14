@@ -13,6 +13,10 @@ public class Articulo {
 		this.codBarras = codBarras;
 		this.precio = precio;
 	}
+	
+	public Articulo() {
+		
+	}
 
 	public int getId() {
 		return id;

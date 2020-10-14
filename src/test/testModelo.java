@@ -14,11 +14,17 @@ public class testModelo {
 		Comercio comercio = new Comercio(1, contacto, "Wallmart", 2040321237, 500, 125, 2, 15, 25);
 		Cliente cliente = new Cliente();
 		Envio envio = new Envio();
+		Articulo articulo = new Articulo();
 
-		System.out.println("Validamos dni y cuit: ");
+		System.out.println("Validamos dni , cuit y codigo de barras: ");
 		System.out.println("Digito Verificador: " + comercio.validarIdentificadorUnico(2041354026l));
 		System.out.println("Verificador de Dni: " + cliente.validarDni(41354026));
-
+		System.out.println("Verificamos cod de barras: " + articulo.validarCodBarras("1344567829133"));
+		
+		//articulo.validarCodBarras("134456782913543");
+		//comercio.validarIdentificadorUnico(2041354022465l);
+		//cliente.validarDni(413540206);
+		
 		System.out.println(" ");
 		System.out.println("se ingresan cuit y dni incorrectos");
 		try {
@@ -122,6 +128,19 @@ public class testModelo {
 		     System.out.println(e1.getMessage());
 		}
 		
+		System.out.println("------------------------------------");
+		comercio.agregarDiaRetiro(14, LocalTime.of(16, 30), LocalTime.of(17, 00), 30);
+		comercio.agregarDiaRetiro(14, LocalTime.of(17, 00), LocalTime.of(17, 30), 30);
+		comercio.agregarDiaRetiro(15, LocalTime.of(12, 30), LocalTime.of(13, 00), 30);
+
+		//comercio.nuevoTurno(LocalDate.of(2020, 10, 14));
+		//comercio.nuevoTurno(LocalDate.of(2020, 10, 15));
+		//comercio.Turnos((LocalDate.of(2020, 10, 14)), "OP");
+		//comercio.generarAgenda(LocalDate.of(2020, 10, 14));
+		
+		
+		//System.out.println(comercio.traerTurnosOcupados(LocalDate.of(2020, 10, 14)));
+		//System.out.println(comercio.traerHoraRetiro(LocalDate.of(2020, 10, 14)));
 		
 		System.out.println(" ");
 

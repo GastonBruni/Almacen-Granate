@@ -63,7 +63,7 @@ public class Comercio extends Actor {
 		}
 
 	}
-	
+
 	public double getCostoFijo() {
 		return costoFijo;
 	}
@@ -128,10 +128,13 @@ public class Comercio extends Actor {
 		this.ltsCarrito = ltsCarrito;
 	}
 
-	public boolean validarIdentificadorUnico(long cuit) {
+	public boolean validarIdentificadorUnico(long cuit) throws Exception {
 		boolean cond = false;
 		if (cuit >= 11111111l && cuit <= 9999999999l) {
 			cond = true;
+		}else {
+			cond = false;
+			throw new Exception("Error: Cuit ingresado no es valido");
 		}
 		return cond;
 	}
@@ -213,6 +216,70 @@ public class Comercio extends Actor {
 			idDiaRetiro = ltsDiaRetiro.get(ltsDiaRetiro.size() - 1).getId() + 1;
 		}
 		return ltsDiaRetiro.add(new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo));
+	}
+
+	public DiaRetiro traerDiaRetiro(LocalDate fecha) {
+		DiaRetiro dia = null;
+		boolean cond = false;
+		int i = 0, cant = this.ltsDiaRetiro.size();
+		while (((i < cant) && (!cond))) {
+			if (fecha.getDayOfWeek().getValue() == this.ltsDiaRetiro.get(i).getDiaSemana()) {
+				dia = this.ltsDiaRetiro.get(i);
+				cond = true;
+			}
+			i++;
+		}
+		if (!cond)
+			dia = null;
+		return dia;
+	}
+
+	public List<Turno> Turnos(LocalDate fecha, String disyuntiva) throws Exception {
+		List<Turno> lstTurno = nuevoTurno(fecha);
+		List<LocalTime> lstHorario = traerHoraRetiro(fecha);
+		int i = 0, cant = lstTurno.size();
+		boolean cond = false;
+		for (LocalTime hora : lstHorario) {
+			while ((i < cant) && (!cond)) {
+				LocalTime inicio = lstTurno.get(i).getHora();
+				if (hora.equals(inicio)) {
+					if (disyuntiva.equals("Agenda"))
+						lstTurno.get(i).setOcupado(true);
+					else {
+						lstTurno.remove(i);
+						i--;
+					}
+					cond = true;
+				}
+				i++;
+			}
+			cond = false;
+		}
+		return lstTurno;
+	}
+
+	public List<Turno> nuevoTurno(LocalDate fecha) throws Exception {
+		DiaRetiro dia = traerDiaRetiro(fecha);
+		if (dia == null)
+			throw new Exception("Error al agregar el nuevo turno");
+		List<Turno> turnos = new ArrayList<Turno>();
+		int intervalo = dia.getIntervalo();
+		LocalTime inicio = dia.getHoraDesde();
+		LocalTime fin = dia.getHoraHasta().minusMinutes(intervalo);
+		while (inicio.compareTo(fin) <= 0) {
+			Turno turno = new Turno(fecha, inicio, true);
+			turnos.add(turno);
+			inicio = inicio.plusMinutes(intervalo);
+		}
+		return turnos;
+	}
+
+	public List<Turno> generarTurnosLibres(LocalDate fecha) throws Exception {
+		return Turnos(fecha, "Generar turnos libres");
+	}
+
+	public List<Turno> generarAgenda(LocalDate fecha) throws Exception {
+		return Turnos(fecha, "Generar agenda");
 	}
 
 	public List<LocalTime> traerHoraRetiro(LocalDate fecha) {
@@ -311,7 +378,6 @@ public class Comercio extends Actor {
 	}
 
 	public boolean agregarCliente(Contacto contacto, String apellido, String nombre, long dni) throws Exception {
-		
 
 		if (traerCliente(dni) == null) {
 			int id = 1;
